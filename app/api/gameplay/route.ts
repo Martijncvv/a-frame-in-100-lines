@@ -73,8 +73,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
             state: {
-                counter: state?.counter,
-                mastermindVar: state?.mastermindVar,
+                counter: state.counter ? state.counter + 1 : 23,
+                mastermindVar: 'red, blue, green',
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),

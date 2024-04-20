@@ -16,10 +16,10 @@ const frameMetadata = getFrameMetadata({
   input: {
     text: 'Marty',
   },
-  state: {
-            counter: 23,
-            mastermindVar: 'red, blue, green',
-        },
+  // state: {
+  //           counter: 23,
+  //           mastermindVar: 'red, blue, green',
+  //       },
   postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
 
 });
