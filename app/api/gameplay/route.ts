@@ -39,7 +39,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `Counter: ${state?.counter}`,
+                    label: `Counter1: ${state?.counter}`,
                 },
                 {
                     label: `Mstemind: ${state?.mastermindVar || 'notset'}`,
