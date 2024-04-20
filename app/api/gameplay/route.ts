@@ -17,15 +17,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         counter: undefined,
         mastermindVar: undefined,
     };
-    let checker = false
-    console.log("state1: ", state)
-    console.log("message1: ", message)
-    console.log("message1state: ", message.state)
-    console.log("message.raw: ", message.raw)
-    console.log("message.raw.action: ", message.raw.action)
+
     try {
         if (message.state?.serialized) {
-            checker = true
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
             // Merge parsed state with default state to fill in any missing properties
@@ -52,20 +46,15 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     return new NextResponse(
         getFrameHtmlResponse({
             buttons: [
+
+               {
+                    label: `Mstemind: ${state?.mastermindVar || 'notset'}`,
+                 },
+               {
+                    label: `counter: ${state?.counter || 'notset'}`,
+                 },
                 {
-                    label: `${checker ? "Yes " : "No "}`,
-                },
-                // {
-                //     label: `Mstemind: ${state?.mastermindVar || 'notset'}`,
-                // },
-                // {
-                //     label: `txt: ${text}`,
-                // },
-                // {
-                //     label: `${message.state.mastermindVar}`,
-                // },
-                {
-                    label: `${message.state.serialized}`,
+                    label: `txt: ${text}`,
                 },
 
             ],
