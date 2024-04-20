@@ -19,6 +19,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     };
     let checker = false
     console.log("state1: ", state)
+    console.log("message1: ", message)
+    console.log("message1state: ", message.state)
     try {
         if (message.state?.serialized) {
             checker = true
