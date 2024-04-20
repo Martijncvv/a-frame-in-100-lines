@@ -6,6 +6,7 @@ const frameMetadata = getFrameMetadata({
   buttons: [
     {
       label: 'Start Mastermind',
+      action: 'post',
     },
   ],
   image: {
