@@ -13,13 +13,7 @@ const frameMetadata = getFrameMetadata({
     src: `${NEXT_PUBLIC_URL}/mastermind-1.png`,
     aspectRatio: '1:1',
   },
-  input: {
-    text: 'Marty',
-  },
-  // state: {
-  //           counter: 23,
-  //           mastermindVar: 'red, blue, green',
-  //       },
+
   postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
 
 });

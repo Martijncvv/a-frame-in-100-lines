@@ -10,19 +10,83 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         return new NextResponse('Message not valid', { status: 500 });
     }
 
-    const text = message.input || '';
+    const getRandomSolution = () => {
+        const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+        return Array.from({ length: 4 }, () => colors[Math.floor(Math.random() * colors.length)]).join(',');
+    }
+
+    const checkGuess = (guess: string, solution: string) => {
+        const result: string[] = [];
+        const solutionChars = solution.split('');
+        const guessChars = guess.split('');
+        const length = guessChars.length;
+
+        // First pass to find white pegs (correct color and position)
+        for (let i = 0; i < length; i++) {
+            if (guessChars[i] === solutionChars[i]) {
+                result.push('white');
+                // @ts-ignore
+                solutionChars[i] = null; // Mark this solution character as matched
+                // @ts-ignore
+                guessChars[i] = null; // Mark this guess character as used
+            }
+        }
+
+        // Second pass to find black pegs (correct color, wrong position)
+        for (let i = 0; i < length; i++) {
+            if (guessChars[i] !== null) { // Skip already matched guesses
+                const index = solutionChars.findIndex((c) => c === guessChars[i]);
+                if (index !== -1) {
+                    result.push('black');
+                    // @ts-ignore
+                    solutionChars[index] = null; // Mark this solution character as matched
+                }
+            }
+        }
+
+        return result.join(',');
+
+    }
+
+    const guess = message.input || '';
 
 
     let state = {
         counter: undefined,
-        mastermindVar: undefined,
+        solution: "",
     };
 
     try {
         if (message.state?.serialized) {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
-            // Merge parsed state with default state to fill in any missing properties
+
+            console.log("message.state.serialized: ", message.state.serialized)
+            // if the state has a solution, we're in the middle of a game
+            if (parsedState.solution) {
+                // if the user has guessed the solution, reset the game
+                if (parsedState.solution.join('') === guess) {
+                    state = {
+                        ...state,
+                        solution: getRandomSolution(),
+                    };
+                    alert('You win!');
+                } else {
+                    state = {
+                        ...state,
+                        ...parsedState,
+                    };
+                    alert('Try again!');
+                }
+            } else {
+                // if the state doesn't have a solution, we're starting a new game
+                state = {
+                    ...state,
+                    solution: getRandomSolution(),
+                };
+                alert('New game!');
+            }
+
             state = {
                 ...state,
                 ...parsedState
@@ -31,33 +95,21 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     } catch (e) {
         console.error(e);
     }
-    console.log("state22: ", state)
 
-    /**
-     * Use this code to redirect to a different page
-     */
-    if (message?.button === 3) {
-        return NextResponse.redirect(
-            'https://www.google.com/search?q=cute+dog+pictures&tbm=isch&source=lnms',
-            { status: 302 },
-        );
-    }
+    // generate an image
+
 
     return new NextResponse(
         getFrameHtmlResponse({
             buttons: [
-
-               {
-                    label: `Mstemind: ${state?.mastermindVar || 'notset'}`,
-                 },
-               {
-                    label: `counter: ${state?.counter || 'notset'}`,
-                 },
                 {
-                    label: `txt: ${text}`,
+                    label: `txt: ${checkGuess(guess, state.solution)}`,
                 },
 
             ],
+            input: {
+                text: 'Your try',
+            },
             image: {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
