@@ -14,8 +14,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
 
     let state = {
-        page: 0,
-        mastermindVar: '',
+        counter: undefined,
+        mastermindVar: undefined,
     };
     console.log("state1: ", state)
     try {
@@ -39,7 +39,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `Page: ${state?.page}`,
+                    label: `Counter: ${state?.counter}`,
                 },
                 {
                     label: `Mstemind: ${state?.mastermindVar || 'notset'}`,
@@ -54,8 +54,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
             state: {
-                page: state?.page + 1,
-                time: new Date().toISOString(),
+                page: state?.counter ? state.counter + 1 : 1,
             },
         }),
     );
