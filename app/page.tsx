@@ -1,9 +1,6 @@
 import { getFrameMetadata } from '@coinbase/onchainkit/frame';
 import type { Metadata } from 'next';
 import { NEXT_PUBLIC_URL } from './config';
-import parkImage1 from '../public/park-1.png';
-import Image from 'next/image';
-
 
 const frameMetadata = getFrameMetadata({
   buttons: [
@@ -19,6 +16,10 @@ const frameMetadata = getFrameMetadata({
     text: 'Marty',
   },
   postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
+  state: {
+    page: 0,
+    mastermindVar: 'red blue green',
+  },
 });
 
 export const metadata: Metadata = {

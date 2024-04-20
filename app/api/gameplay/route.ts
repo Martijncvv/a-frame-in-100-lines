@@ -16,11 +16,13 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         page: 0,
         mastermindVar: '',
     };
+    console.log("state1: ", state)
     try {
         state = JSON.parse(decodeURIComponent(message.state?.serialized));
     } catch (e) {
         console.error(e);
     }
+    console.log("state22: ", state)
 
     /**
      * Use this code to redirect to a different page
@@ -36,7 +38,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `State: ${state?.page || 0}`,
+                    label: `Page: ${state?.page}`,
                 },
                 {
                     label: `Mastermind: ${state?.mastermindVar || ''}`,
