@@ -5,13 +5,12 @@ import { NEXT_PUBLIC_URL } from './config';
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
-      label: 'Story time',
+      label: 'Hello open-source world',
     },
     {
       action: 'tx',
-      label: 'Send Base Sepolia',
-      target: `${NEXT_PUBLIC_URL}/api/tx`,
-      postUrl: `${NEXT_PUBLIC_URL}/api/tx-success`,
+      label: 'Hello onchain',
+      target: '0x1234',
     },
   ],
   image: {
@@ -25,10 +24,10 @@ const frameMetadata = getFrameMetadata({
 });
 
 export const metadata: Metadata = {
-  title: 'zizzamia.xyz',
+  title: 'mcfly.xyz',
   description: 'LFG',
   openGraph: {
-    title: 'zizzamia.xyz',
+    title: 'mcfly.xyz',
     description: 'LFG',
     images: [`${NEXT_PUBLIC_URL}/park-1.png`],
   },
