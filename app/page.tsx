@@ -8,31 +8,26 @@ import Image from 'next/image';
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
-      label: 'Hello open-marty world',
-    },
-    {
-      action: 'tx',
-      label: 'Hello marty',
-      target: '0x1234',
+      label: 'Start Mastermind',
     },
   ],
   image: {
-    src: `${NEXT_PUBLIC_URL}/park-3.png`,
+    src: `${NEXT_PUBLIC_URL}/mastermind-1.png`,
     aspectRatio: '1:1',
   },
   input: {
     text: 'Marty',
   },
-  postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
+  postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
 });
 
 export const metadata: Metadata = {
-  title: 'mcfly.xyz',
-  description: 'LFG',
+  title: 'Mastermindcfly',
+  description: 'Mastermind tiempo',
   openGraph: {
     title: 'mcfly.xyz',
-    description: 'LFG',
-    images: [`${NEXT_PUBLIC_URL}/park-1.png`],
+    description: 'Mastermindooo',
+    images: [`${NEXT_PUBLIC_URL}/mastermind-1.png`],
   },
   other: {
     ...frameMetadata,
