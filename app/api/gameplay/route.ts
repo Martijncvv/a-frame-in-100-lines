@@ -39,14 +39,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     label: `State: ${state?.page || 0}`,
                 },
                 {
+                    label: `${state?.mastermindVar}`,
+                },
+                {
                     action: 'link',
                     label: `OnchainKit ${text}`,
                     target: 'https://onchainkit.xyz',
                 },
-                {
-                    action: 'post_redirect',
-                    label: `${state?.mastermindVar}`,
-                },
+
             ],
             image: {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
