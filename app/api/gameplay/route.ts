@@ -38,24 +38,27 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     return new NextResponse(
         getFrameHtmlResponse({
             buttons: [
+                // {
+                //     label: `Counter1: ${state?.counter}`,
+                // },
+                // {
+                //     label: `Mstemind: ${state?.mastermindVar || 'notset'}`,
+                // },
+                // {
+                //     label: `txt: ${text}`,
+                // },
                 {
-                    label: `Counter1: ${state?.counter}`,
-                },
-                {
-                    label: `Mstemind: ${state?.mastermindVar || 'notset'}`,
-                },
-                {
-                    label: `txt: ${text}`,
+                    label: `${message.state}`,
                 },
 
             ],
             image: {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
-            // state: {
-            //     counter: state?.counter ? state?.counter + 1 : 1,
-            //     mastermindVar: state?.mastermindVar,
-            // },
+            state: {
+                counter: state?.counter,
+                mastermindVar: state?.mastermindVar,
+            },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
     );
