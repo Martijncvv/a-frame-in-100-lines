@@ -38,7 +38,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 },
                 {
                     action: 'link',
-                    label: 'OnchainKit',
+                    label: `OnchainKit ${text}`,
                     target: 'https://onchainkit.xyz',
                 },
                 {

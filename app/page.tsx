@@ -37,8 +37,9 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h1>Martycfly.xyz</h1>
-      <Image src={parkImage1} alt="Park View" layout='fill' objectFit='cover'/>
+      <h1>X: Martycfly</h1>
+      <h2>WP: Marty_cfly</h2>
+      <h3>What you doing here bro</h3>
     </>
   );
 }
