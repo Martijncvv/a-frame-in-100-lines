@@ -12,6 +12,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
     const text = message.input || '';
 
+
     let state = {
         page: 0,
         mastermindVar: '',
@@ -41,12 +42,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     label: `Page: ${state?.page}`,
                 },
                 {
-                    label: `Mastermind: ${state?.mastermindVar || ''}`,
+                    label: `Mstemind: ${state?.mastermindVar || 'notset'}`,
                 },
                 {
-                    action: 'link',
-                    label: `OnchainKit ${text}`,
-                    target: 'https://onchainkit.xyz',
+                    label: `txt: ${text}`,
                 },
 
             ],
