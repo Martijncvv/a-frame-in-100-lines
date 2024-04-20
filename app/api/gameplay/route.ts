@@ -47,8 +47,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 // {
                 //     label: `txt: ${text}`,
                 // },
+                // {
+                //     label: `${message.state.mastermindVar}`,
+                // },
                 {
-                    label: `${message.state}`,
+                    label: `${message.state.serialized}`,
                 },
 
             ],
