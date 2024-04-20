@@ -44,6 +44,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             }
         }
 
+        state.answers = `${guessChars.join('')}  - ${result.join('')} \n`;
+
         return result.join('');
 
     }
@@ -54,6 +56,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     let state = {
         counter: undefined,
         solution: "",
+        answers: ""
     };
 
     try {
@@ -100,9 +103,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `Guess: ${checkGuess(guess, state.solution)}`,
+                    label: `Result: ${checkGuess(guess, state.solution)}`,
                 },
-
+                {
+                    label: `${state.answers}`,
+                },
             ],
             input: {
                 text: 'Your try',
