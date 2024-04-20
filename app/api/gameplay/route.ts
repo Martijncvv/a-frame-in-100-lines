@@ -11,20 +11,20 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     }
 
     const getRandomSolution = () => {
-        const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+        const colors = ['r', 'b', 'g', 'y'];
         return Array.from({ length: 4 }, () => colors[Math.floor(Math.random() * colors.length)]).join(',');
     }
 
     const checkGuess = (guess: string, solution: string) => {
         const result: string[] = [];
-        const solutionChars = solution.split('');
-        const guessChars = guess.split('');
+        const solutionChars = solution.split(',');
+        const guessChars = guess.split(',');
         const length = guessChars.length;
 
         // First pass to find white pegs (correct color and position)
         for (let i = 0; i < length; i++) {
             if (guessChars[i] === solutionChars[i]) {
-                result.push('white');
+                result.push('⚪');
                 // @ts-ignore
                 solutionChars[i] = null; // Mark this solution character as matched
                 // @ts-ignore
@@ -37,14 +37,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             if (guessChars[i] !== null) { // Skip already matched guesses
                 const index = solutionChars.findIndex((c) => c === guessChars[i]);
                 if (index !== -1) {
-                    result.push('black');
+                    result.push('⚫');
                     // @ts-ignore
                     solutionChars[index] = null; // Mark this solution character as matched
                 }
             }
         }
 
-        return result.join(',');
+        return result.join('');
 
     }
 
@@ -61,7 +61,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
 
-            console.log("message.state.serialized: ", message.state.serialized)
+            console.log("message.decodedState: ", decodedState)
             // if the state has a solution, we're in the middle of a game
             if (parsedState.solution) {
                 // if the user has guessed the solution, reset the game
@@ -70,13 +70,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                         ...state,
                         solution: getRandomSolution(),
                     };
-                    alert('You win!');
                 } else {
                     state = {
                         ...state,
                         ...parsedState,
                     };
-                    alert('Try again!');
                 }
             } else {
                 // if the state doesn't have a solution, we're starting a new game
@@ -84,7 +82,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     ...state,
                     solution: getRandomSolution(),
                 };
-                alert('New game!');
             }
 
             state = {
@@ -103,7 +100,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `txt: ${checkGuess(guess, state.solution)}`,
+                    label: `Guess: ${checkGuess(guess, state.solution)}`,
                 },
 
             ],
@@ -114,7 +111,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
             state: {
-                counter: state.counter ? state.counter + 1 : 23,
+                counter: state.counter ? state.counter + 1 : 1,
                 mastermindVar: 'red, blue, green',
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
