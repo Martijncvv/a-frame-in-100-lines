@@ -54,7 +54,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
             state: {
-                page: state?.counter ? state.counter + 1 : 1,
+                counter: state?.counter,
+                mastermindVar: state?.mastermindVar,
             },
         }),
     );
