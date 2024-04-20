@@ -52,10 +52,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             image: {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
-            state: {
-                counter: state?.counter ? state?.counter + 1 : 1,
-                mastermindVar: state?.mastermindVar,
-            },
+            // state: {
+            //     counter: state?.counter ? state?.counter + 1 : 1,
+            //     mastermindVar: state?.mastermindVar,
+            // },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
     );
