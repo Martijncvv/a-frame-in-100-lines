@@ -19,6 +19,10 @@ const frameMetadata = getFrameMetadata({
     text: 'Marty',
   },
   postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
+  state: {
+    mastermindVar: "Red, Blue, Red, Blue",
+    time: new Date().toISOString(),
+  },
 });
 
 export const metadata: Metadata = {

@@ -11,8 +11,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     }
 
     const text = message.input || '';
+
     let state = {
         page: 0,
+        mastermindVar: '',
     };
     try {
         state = JSON.parse(decodeURIComponent(message.state?.serialized));
@@ -43,7 +45,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 },
                 {
                     action: 'post_redirect',
-                    label: 'Dog pictures',
+                    label: `${state?.mastermindVar}`,
                 },
             ],
             image: {
