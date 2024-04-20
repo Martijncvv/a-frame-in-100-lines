@@ -1,15 +1,18 @@
 import { getFrameMetadata } from '@coinbase/onchainkit/frame';
 import type { Metadata } from 'next';
 import { NEXT_PUBLIC_URL } from './config';
+import parkImage1 from '../public/park-1.png';
+import Image from 'next/image';
+
 
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
-      label: 'Hello open-source world',
+      label: 'Hello open-marty world',
     },
     {
       action: 'tx',
-      label: 'Hello onchain',
+      label: 'Hello marty',
       target: '0x1234',
     },
   ],
@@ -40,6 +43,7 @@ export default function Page() {
   return (
     <>
       <h1>Martycfly.xyz</h1>
+      <Image src={parkImage1} alt="Park View" layout='fill' objectFit='cover'/>
     </>
   );
 }
