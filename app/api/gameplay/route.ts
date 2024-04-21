@@ -118,6 +118,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     } catch (e) {
         console.error(e);
     }
+    console.log("state123: ", state)
 
     // generate an image
     return new NextResponse(
