@@ -13,7 +13,6 @@ const colorMap: { [key: string]: string } = {
 };
 
 interface IState {
-    counter?: number;
     solution: string;
     guesses: string[];
 }
@@ -75,7 +74,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     const guess = message.input || '';
 
     let state: IState = {
-        counter: undefined,
         solution: "",
         guesses: []
     };
@@ -85,35 +83,26 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
 
-            // if the state has a solution, we're in the middle of a game
             if (parsedState.solution) {
-                // if the user has guessed the solution, reset the game
                 if (parsedState.solution.join('') === guess) {
-                    // todo display finish screen
-                    state = {
-                        ...state,
-                        solution: getRandomSolution(),
-                    };
+                    // todo - handle win
                 } else {
-                   const feedback = checkGuess(guess, parsedState.solution);
+                    const feedback = checkGuess(guess, parsedState.solution);
                     state = {
-                        ...state,
                         ...parsedState,
                         guesses: [...parsedState.guesses, feedback],
                     };
                 }
             } else {
-                // if the state doesn't have a solution, we're starting a new game
+                const newSolution = getRandomSolution()
+                const feedback = checkGuess(guess, newSolution);
                 state = {
                     ...state,
-                    solution: getRandomSolution(),
+                    ...parsedState,
+                    solution : newSolution,
+                    guesses: [...parsedState.guesses, feedback],
                 };
             }
-
-            state = {
-                ...state,
-                ...parsedState
-            };
         }
     } catch (e) {
         console.error(e);
