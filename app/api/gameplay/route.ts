@@ -100,7 +100,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 state = {
                     ...parsedState,
                     solution : newSolution,
-                    guesses: [parsedState.guesses, feedback],
+                    guesses: [feedback],
                 };
             }
         }
@@ -121,6 +121,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 },
                 {
                     label: `G2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
+                },
+                {
+                    label: `G3: ${state.guesses[2] ? state.guesses[2] : "-"}`,
                 },
             ],
             input: {
