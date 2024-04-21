@@ -131,9 +131,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 {
                     label: `G2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
                 },
-                {
-                    label: `G3: ${state.guesses[2] ? state.guesses[2] : "-"}`,
-                },
+                // {
+                //     label: `G3: ${state.guesses[2] ? state.guesses[2] : "-"}`,
+                // },
             ],
             input: {
                 text: 'Your guess (e.g. r,g,b,y)',
