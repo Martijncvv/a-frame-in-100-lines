@@ -18,6 +18,51 @@ interface IState {
     guesses: string[];
 }
 
+const getRandomSolution = () => {
+    // const colors = ['r', 'g','b', 'y', "o"];
+    const colors = ['r', 'g','b', 'y'];
+    return Array.from({ length: 4 }, () => colors[Math.floor(Math.random() * colors.length)]).join(',');
+}
+
+
+
+const checkGuess = (guess: string, solution: string) => {
+    const result: any = [];
+    const solutionChars = solution.split(',');
+    const guessEmojis = guess.split(',').map((r) => colorMap[r]).join('');
+    const guessChars: any  = guess.split(',');
+    const length = guessChars.length;
+
+    if (guessChars?.length ===  0) {
+        return "Please enter a guess"
+    }
+    // First pass to find white pegs (correct color and position)
+    for (let i = 0; i < length; i++) {
+        if (guessChars[i] === solutionChars[i]) {
+            result.push('wh');
+            // @ts-ignore
+            solutionChars[i] = null; // Mark this solution character as matched
+            guessChars[i] = null; // Mark this guess character as used
+        }
+    }
+
+    // Second pass to find black pegs (correct color, wrong position)
+    for (let i = 0; i < length; i++) {
+        if (guessChars[i] !== null) { // Skip already matched guesses
+            const index = solutionChars.findIndex((c) => c === guessChars[i]);
+            if (index !== -1) {
+                result.push('bl');
+                // @ts-ignore
+                solutionChars[index] = null; // Mark this solution character as matched
+            }
+        }
+    }
+
+    const feedback =  result?.length > 0 ? result.map((r: any) => colorMap[r]).join('') : '';
+
+    return `${guessEmojis}-${feedback}`;
+}
+
 async function getResponse(req: NextRequest): Promise<NextResponse> {
     const body: FrameRequest = await req.json();
     const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
@@ -26,55 +71,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         return new NextResponse('Message not valid', { status: 500 });
     }
 
-    const getRandomSolution = () => {
-        // const colors = ['r', 'g','b', 'y', "o"];
-        const colors = ['r', 'g','b', 'y'];
-        return Array.from({ length: 4 }, () => colors[Math.floor(Math.random() * colors.length)]).join(',');
-    }
-
-    const checkGuess = (guess: string, solution: string) => {
-        const result: string[] = [];
-        const solutionChars = solution.split(',');
-        // @ts-ignore
-       const guessEmojis = guess.split(',').map((r) => colorMap[r]).join('');
-        const guessChars = guess.split(',');
-        const length = guessChars.length;
-
-        if (guessChars?.length ===  0) {
-            return "Please enter a guess"
-        }
-
-        // First pass to find white pegs (correct color and position)
-        for (let i = 0; i < length; i++) {
-            if (guessChars[i] === solutionChars[i]) {
-                result.push('wh');
-                // @ts-ignore
-                solutionChars[i] = null; // Mark this solution character as matched
-                // @ts-ignore
-                guessChars[i] = null; // Mark this guess character as used
-            }
-        }
-
-        // Second pass to find black pegs (correct color, wrong position)
-        for (let i = 0; i < length; i++) {
-            if (guessChars[i] !== null) { // Skip already matched guesses
-                const index = solutionChars.findIndex((c) => c === guessChars[i]);
-                if (index !== -1) {
-                    result.push('bl');
-                    // @ts-ignore
-                    solutionChars[index] = null; // Mark this solution character as matched
-                }
-            }
-        }
-
-        const feedback =  result?.length > 0 ? result.map((r) => colorMap[r]).join('') : '';
-
-        const newGuesses = state.guesses || [];
-        newGuesses.push(`${guessEmojis}-${feedback}`)
-        state.guesses = newGuesses
-
-        return `Guess: ${guessEmojis}-${feedback}`;
-    }
 
     const guess = message.input || '';
 
@@ -99,10 +95,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                         solution: getRandomSolution(),
                     };
                 } else {
-                    checkGuess(guess, parsedState.solution);
+                   const feedback = checkGuess(guess, parsedState.solution);
                     state = {
                         ...state,
                         ...parsedState,
+                        guesses: [...parsedState.guesses, feedback],
                     };
                 }
             } else {
