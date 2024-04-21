@@ -80,8 +80,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         test: "",
     };
 
-    let test = ""
-
     try {
         if (message.state?.serialized) {
             const decodedState = decodeURIComponent(message.state.serialized);
@@ -131,9 +129,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 {
                     label: `G2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
                 },
-                // {
-                //     label: `G3: ${state.guesses[2] ? state.guesses[2] : "-"}`,
-                // },
             ],
             input: {
                 text: 'Your guess (e.g. r,g,b,y)',
@@ -141,11 +136,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             image: {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
-            state: {
-                test: state.test,
-                solution: state.solution,
-                guesses: state.guesses,
-            },
+            state,
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
     );
