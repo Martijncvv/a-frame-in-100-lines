@@ -66,7 +66,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         // @ts-ignore
         const feedback = result.map((r) => colorMap[r]).join('');
 
-        state.guesses = state.guesses.concat([`${guessEmojis} - ${feedback}`]);
+        const newGuesses = state.guesses || [];
+        newGuesses.push(`${guessEmojis} - ${feedback}`)
+        state.guesses = newGuesses
 
         return `Guess: ${guessEmojis} - ${feedback}`;
     }
