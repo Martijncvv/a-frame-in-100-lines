@@ -142,11 +142,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             image: {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
-            state: {
-                counter: state.counter ? state.counter + 1 : 1,
-                solution: state.solution,
-                guesses: state.guesses,
-            },
+            state,
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
     );
