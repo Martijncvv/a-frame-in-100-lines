@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { NEXT_PUBLIC_URL } from '../../config';
 
 const colorMap = {
-    // emoji
     r: '🔴',
     g: '🟢',
     b: '🔵',
@@ -63,8 +62,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             }
         }
 
-        // @ts-ignore
-        const feedback = result.map((r) => colorMap[r]).join('');
+        const feedback =  result?.length > 0 ? result.map((r) => colorMap[r]).join('') : '';
 
         const newGuesses = state.guesses || [];
         newGuesses.push(`${guessEmojis} - ${feedback}`)
