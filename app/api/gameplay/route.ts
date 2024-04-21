@@ -68,7 +68,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
         state.guesses = state.guesses.concat(`${guessEmojis} - ${feedback}`);
 
-        return `${guessEmojis} - ${feedback}`;
+        return `Guess: ${guessEmojis} - ${feedback}`;
     }
 
     const guess = message.input || '';
@@ -130,7 +130,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     label: `Guess 3: ${state.guesses[2] ? state.guesses[2] : "-"}`,
                 },
                 {
-                    label: `Guess 4: ${state.guesses[3] ? state.guesses[3] : "-"}`,
+                    label: `${checkGuess(guess, state.solution)}`,
                 },
             ],
             input: {
