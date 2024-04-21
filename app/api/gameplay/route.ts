@@ -15,7 +15,7 @@ const colorMap: { [key: string]: string } = {
 interface IState {
     counter?: number;
     solution: string;
-    guesses: string[]; // Clearly define as an array of strings
+    guesses: string[];
 }
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
@@ -40,7 +40,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         const guessChars = guess.split(',');
         const length = guessChars.length;
 
-        if (!(guessChars?.length >  0)) {
+        if (guessChars?.length ===  0) {
             return "Please enter a guess"
         }
 
