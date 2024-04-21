@@ -124,7 +124,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `G1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
+                    label: `${checkGuess(guess, state.solution)}`,
                 },
                 {
                     label: `G2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
