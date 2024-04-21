@@ -2,7 +2,7 @@ import { FrameRequest, getFrameMessage, getFrameHtmlResponse } from '@coinbase/o
 import { NextRequest, NextResponse } from 'next/server';
 import { NEXT_PUBLIC_URL } from '../../config';
 
-const colorMap = {
+const colorMap: { [key: string]: string } = {
     r: '🔴',
     g: '🟢',
     b: '🔵',
