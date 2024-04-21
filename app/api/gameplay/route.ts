@@ -12,6 +12,11 @@ const colorMap: { [key: string]: string } = {
     bl: '⚫',
 };
 
+interface IState {
+    counter?: number;
+    solution: string;
+    guesses: string[]; // Clearly define as an array of strings
+}
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
     const body: FrameRequest = await req.json();
@@ -73,7 +78,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
     const guess = message.input || '';
 
-    let state = {
+    let state: IState = {
         counter: undefined,
         solution: "",
         guesses: []
