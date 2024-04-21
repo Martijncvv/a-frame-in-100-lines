@@ -13,7 +13,6 @@ const colorMap: { [key: string]: string } = {
 };
 
 interface IState {
-    test: string;
     solution: string;
     guesses: string[];
 }
@@ -77,7 +76,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     let state: IState = {
         solution: "",
         guesses: [],
-        test: "",
     };
 
     try {
@@ -92,7 +90,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     const feedback = checkGuess(guess, parsedState.solution);
                     state = {
                         ...parsedState,
-                        test: "BRO 22",
                         guesses: [parsedState.guesses, feedback],
                     };
                 }
@@ -102,7 +99,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 const feedback = checkGuess(guess, newSolution);
                 state = {
                     ...parsedState,
-                    test: "BRO 333",
                     solution : newSolution,
                     guesses: [parsedState.guesses, feedback],
                 };
@@ -119,9 +115,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             buttons: [
                 {
                     label: `${checkGuess(guess, state.solution)}`,
-                },
-                {
-                    label: `${state.test}`,
                 },
                 {
                     label: `G1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
