@@ -90,7 +90,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     const feedback = checkGuess(guess, parsedState.solution);
                     state = {
                         ...parsedState,
-                        guesses: [parsedState.guesses, feedback],
+                        guesses: [...parsedState.guesses, feedback],
                     };
                 }
             } else {
