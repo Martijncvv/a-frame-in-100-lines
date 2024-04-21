@@ -136,7 +136,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             },
             state:{
                 solution: state.solution,
-                guesses: state.guesses,
+                guesses: [...state.guesses],
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
