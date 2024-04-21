@@ -99,6 +99,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                         solution: getRandomSolution(),
                     };
                 } else {
+                    checkGuess(guess, parsedState.solution);
                     state = {
                         ...state,
                         ...parsedState,
