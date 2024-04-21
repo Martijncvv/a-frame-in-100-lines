@@ -133,7 +133,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     label: `G3: ${state.guesses[2] ? state.guesses[2] : "-"}`,
                 },
                 {
-                    label: `${checkGuess(guess, state.solution)}`,
+                    label: `G4: ${state.guesses[3] ? state.guesses[3] : "-"}`,
                 },
             ],
             input: {
@@ -144,7 +144,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             },
             state: {
                 counter: state.counter ? state.counter + 1 : 1,
-                mastermindVar: 'red, blue, green',
+                solution: state.solution,
+                guesses: state.guesses,
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
