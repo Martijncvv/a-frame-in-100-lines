@@ -78,6 +78,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         guesses: []
     };
 
+    let test = ""
+
     try {
         if (message.state?.serialized) {
             const decodedState = decodeURIComponent(message.state.serialized);
@@ -85,21 +87,23 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
             if (parsedState.solution) {
                 if (parsedState.solution.join('') === guess) {
-                    // todo - handle win
+                    test = "BRO 1"
                 } else {
+                    test = "BRO 22"
                     const feedback = checkGuess(guess, parsedState.solution);
                     state = {
                         ...parsedState,
-                        guesses: [...parsedState.guesses, feedback],
+                        guesses: [parsedState.guesses, feedback],
                     };
                 }
             } else {
+                test = "BRO 333"
                 const newSolution = getRandomSolution()
                 const feedback = checkGuess(guess, newSolution);
                 state = {
                     ...parsedState,
                     solution : newSolution,
-                    guesses: [...parsedState.guesses, feedback],
+                    guesses: [parsedState.guesses, feedback],
                 };
             }
         }
@@ -114,6 +118,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             buttons: [
                 {
                     label: `${checkGuess(guess, state.solution)}`,
+                },
+                {
+                    label: `${test}`,
                 },
                 {
                     label: `G1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
