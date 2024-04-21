@@ -70,10 +70,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         const feedback =  result?.length > 0 ? result.map((r) => colorMap[r]).join('') : '';
 
         const newGuesses = state.guesses || [];
-        newGuesses.push(`${guessEmojis} - ${feedback}`)
+        newGuesses.push(`${guessEmojis}-${feedback}`)
         state.guesses = newGuesses
 
-        return `Guess: ${guessEmojis} - ${feedback}`;
+        return `Guess: ${guessEmojis}-${feedback}`;
     }
 
     const guess = message.input || '';
@@ -126,13 +126,13 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `Guess 1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
+                    label: `G1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
                 },
                 {
-                    label: `Guess 2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
+                    label: `G2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
                 },
                 {
-                    label: `Guess 3: ${state.guesses[2] ? state.guesses[2] : "-"}`,
+                    label: `G3: ${state.guesses[2] ? state.guesses[2] : "-"}`,
                 },
                 {
                     label: `${checkGuess(guess, state.solution)}`,
