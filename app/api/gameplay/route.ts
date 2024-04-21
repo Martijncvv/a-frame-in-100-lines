@@ -66,9 +66,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         // @ts-ignore
         const feedback = result.map((r) => colorMap[r]).join('');
 
-        state.guesses = `${guessEmojis}  - ${feedback} \n`;
+        state.guesses = state.guesses.concat(`${guessEmojis} - ${feedback}`);
 
-        return `${guessEmojis}  - ${feedback} \n`;
+        return `${guessEmojis} - ${feedback}`;
     }
 
     const guess = message.input || '';
@@ -76,7 +76,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     let state = {
         counter: undefined,
         solution: "",
-        guesses: ""
+        guesses: []
     };
 
     try {
@@ -84,7 +84,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
 
-            console.log("message.decodedState: ", decodedState)
             // if the state has a solution, we're in the middle of a game
             if (parsedState.solution) {
                 // if the user has guessed the solution, reset the game
@@ -118,16 +117,20 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     }
 
     // generate an image
-
-
     return new NextResponse(
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `Result: ${checkGuess(guess, state.solution)}`,
+                    label: `Guess 1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
                 },
                 {
-                    label: `${state.guesses}`,
+                    label: `Guess 2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
+                },
+                {
+                    label: `Guess 3: ${state.guesses[2] ? state.guesses[2] : "-"}`,
+                },
+                {
+                    label: `Guess 4: ${state.guesses[3] ? state.guesses[3] : "-"}`,
                 },
             ],
             input: {
