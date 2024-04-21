@@ -94,7 +94,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     };
                 }
             } else {
-
                 const newSolution = getRandomSolution()
                 const feedback = checkGuess(guess, newSolution);
                 state = {
@@ -117,13 +116,13 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     label: `${checkGuess(guess, state.solution)}`,
                 },
                 {
+                    label: `Sol: ${ state.solution ?  state.solution : "-"}`,
+                },
+                {
                     label: `G1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
                 },
                 {
                     label: `G2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
-                },
-                {
-                    label: `G3: ${state.guesses[2] ? state.guesses[2] : "-"}`,
                 },
             ],
             input: {
