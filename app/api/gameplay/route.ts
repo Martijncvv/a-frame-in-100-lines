@@ -108,21 +108,24 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     }
     console.log("state123: ", state)
 
-    // generate an image
     return new NextResponse(
         getFrameHtmlResponse({
             buttons: [
                 {
                     label: `${checkGuess(guess, state.solution)}`,
+                    action: 'post',
                 },
                 {
                     label: `Sol: ${ state.solution ?  state.solution : "-"}`,
+                    action: 'post',
                 },
                 {
                     label: `G1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
+                    action: 'post',
                 },
                 {
                     label: `G2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
+                    action: 'post',
                 },
             ],
             input: {
