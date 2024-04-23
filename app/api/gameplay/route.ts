@@ -32,9 +32,10 @@ const checkGuess = (guess: string, solution: string) => {
     const guessChars: any  = guess.split(',');
     const length = guessChars.length;
 
-    if (guessChars?.length ===  0) {
-        return "Please enter a guess"
+    if (guessChars?.length !== 4) {
+        return "Please enter a valid guess"
     }
+
     // First pass to find white pegs (correct color and position)
     for (let i = 0; i < length; i++) {
         if (guessChars[i] === solutionChars[i]) {
@@ -134,9 +135,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             image: {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
-            state:{
-                solution: state.solution,
-                guesses: [...state.guesses],
+            state: {
+                serialized: JSON.stringify(state),
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
