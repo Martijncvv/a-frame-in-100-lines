@@ -144,7 +144,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 text: 'Your guess (e.g. r,g,b,y)',
             },
             image: {
-                src: `${NEXT_PUBLIC_URL}/park-1.png`,
+                src: `${NEXT_PUBLIC_URL}/mastermind-1.png`,
             },
             state: {
                 solution: state.solution,
