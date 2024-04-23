@@ -32,8 +32,8 @@ const checkGuess = (guess: string, solution: string) => {
     const guessChars: any  = guess.split(',');
     const length = guessChars.length;
 
-    if (guessChars?.length !== 4) {
-        return "Enter a guess"
+    if (guessChars?.length !== 6) {
+        return `Enter a guess: "r,g,b,y,o" (6 total)`
     }
 
     // First pass to find white pegs (correct color and position)
@@ -141,7 +141,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             ],
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
             input: {
-                text: 'Your guess, e.g. "r,g,b,y,o" (6 total)',
+                text: 'Your guess: "r,g,b,y,o" (6 total)',
             },
             image: {
                 src: `${NEXT_PUBLIC_URL}/mastermind-3.png`,

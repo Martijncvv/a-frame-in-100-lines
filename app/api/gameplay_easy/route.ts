@@ -19,7 +19,7 @@ interface IState {
 }
 
 const getRandomSolution = () => {
-    const colors = ['r', 'g','b', 'y'];
+    const colors = ['r', 'g','b', 'y', "o"];
     return Array.from({ length: 4 }, () => colors[Math.floor(Math.random() * colors.length)]).join(',');
 }
 
@@ -33,7 +33,7 @@ const checkGuess = (guess: string, solution: string) => {
     const length = guessChars.length;
 
     if (guessChars?.length !== 4) {
-        return "Enter a guess"
+        return `Enter a guess: "r,g,b,y,o" (4 total)`
     }
 
     // First pass to find white pegs (correct color and position)
@@ -141,7 +141,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             ],
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
             input: {
-                text: 'Your guess, e.g. "r,g,b,y" (4 total)',
+                text: 'Your guess: "r,g,b,y" (4 total)',
             },
             image: {
                 src: `${NEXT_PUBLIC_URL}/mastermind-1.png`,
