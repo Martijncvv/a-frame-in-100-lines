@@ -90,7 +90,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
             if (parsedState.solution) {
                 if (parsedState.solution === guess) {
-                    gameWonMessage = `You won! ${guess.split(',').map((r) => colorMap[r]).join('')} 🎉`
+                    gameWonMessage = `You won in ${parsedState.counter + 1} tries! ${guess.split(',').map((r) => colorMap[r]).join('')} 🎉`
                 } else {
                     const feedback = checkGuess(guess, parsedState.solution);
                     state = {
@@ -124,12 +124,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     target: `${NEXT_PUBLIC_URL}/api/gameplay`,
                 },
                 {
-                    label: `Sol: ${ state.solution ?  state.solution : "-"}`,
+                    label: !gameWonMessage ? `Sol: ${ state.solution ?  state.solution : "-"}` : "",
                     action: 'post',
                     target: `${NEXT_PUBLIC_URL}/api/gameplay`,
                 },
                 {
-                    label: `Round ${state.counter}`,
+                    label: !gameWonMessage? `Tries ${state.counter}` : "",
                     action: 'post',
                     target: `${NEXT_PUBLIC_URL}/api/gameplay2`,
                 },
