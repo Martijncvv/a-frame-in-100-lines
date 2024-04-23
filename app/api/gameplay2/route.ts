@@ -73,14 +73,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
 
     const guess = message.input || '';
-
     let state: IState = {
         solution: "",
         guesses: [],
     };
-
     try {
-
         if (message.state?.serialized) {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
@@ -111,10 +108,15 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     } catch (e) {
         console.error(e);
     }
-    console.log("state123: ", state)
+    console.log("state222: ", state)
 
+    console.log("state.guesses: ", state.guesses)
     return new NextResponse(
         getFrameHtmlResponse({
+            state: {
+                solution: state.solution,
+                guesses: state.guesses,
+            },
             buttons: [
                 {
                     label: `${checkGuess(guess, state.solution)}`,
@@ -143,9 +145,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             image: {
                 src: `${NEXT_PUBLIC_URL}/park-2.png`,
             },
-            state: {
-                serialized: encodeURIComponent(JSON.stringify(state)),
-            },
+
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
     );

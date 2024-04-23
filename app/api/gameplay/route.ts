@@ -111,7 +111,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     } catch (e) {
         console.error(e);
     }
-    console.log("state123: ", state)
+    console.log("state111: ", state)
+    console.log("state.guesses: ", state.guesses)
 
     return new NextResponse(
         getFrameHtmlResponse({
@@ -144,7 +145,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
             state: {
-                serialized: encodeURIComponent(JSON.stringify(state)),
+            solution: state.solution,
+            guesses: state.guesses,
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay2`,
         }),
