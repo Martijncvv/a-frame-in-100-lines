@@ -72,7 +72,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         return new NextResponse('Message not valid', { status: 500 });
     }
 
-    const guess = message.input.toLowerCase() || '';
+    const guess = message.input ? message.input.toLowerCase() : '';
 
     let state: IState = {
         solution: "",
