@@ -15,6 +15,7 @@ const colorMap: { [key: string]: string } = {
 interface IState {
     solution: string;
     guesses: string[];
+    counter: number;
 }
 
 const getRandomSolution = () => {
@@ -71,12 +72,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         return new NextResponse('Message not valid', { status: 500 });
     }
 
-
     const guess = message.input || '';
 
     let state: IState = {
         solution: "",
         guesses: [],
+        counter: 0,
     };
 
     let gameWonMessage
@@ -86,8 +87,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
 
-            console.log("parsedState.solution: ", parsedState.solution)
-            console.log("guess: ", guess)
+
             if (parsedState.solution) {
                 if (parsedState.solution === guess) {
                     gameWonMessage = `You won! ${guess.split(',').map((r) => colorMap[r]).join('')} 🎉`
@@ -96,6 +96,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     state = {
                         solution: parsedState.solution,
                         guesses: [...parsedState.guesses, feedback],
+                        counter: parsedState.counter + 1,
                     };
                 }
             } else {
@@ -105,14 +106,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     ...parsedState,
                     solution : newSolution,
                     guesses: [feedback],
+                    counter: parsedState.counter + 1,
                 };
             }
         }
     } catch (e) {
         console.error(e);
     }
-    console.log("state111: ", state)
-    console.log("state.guesses: ", state.guesses)
+
 
     return new NextResponse(
         getFrameHtmlResponse({
@@ -127,16 +128,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     action: 'post',
                     target: `${NEXT_PUBLIC_URL}/api/gameplay`,
                 },
-                // {
-                //     label: `G1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
-                //     action: 'post',
-                //     target: `${NEXT_PUBLIC_URL}/api/gameplay2`,
-                // },
-                // {
-                //     label: `G2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
-                //     action: 'post',
-                //     target: `${NEXT_PUBLIC_URL}/api/gameplay2`,
-                // },
+                {
+                    label: `Round ${state.counter}`,
+                    action: 'post',
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay2`,
+                },
+
             ],
             input: {
                 text: 'Your guess (e.g. r,g,b,y)',
@@ -145,8 +142,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
             state: {
-            solution: state.solution,
-            guesses: state.guesses,
+                solution: state.solution,
+                guesses: state.guesses,
+                counter: state.counter,
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
