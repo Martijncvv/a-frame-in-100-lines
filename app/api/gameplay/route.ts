@@ -80,6 +80,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     };
 
     try {
+        console.log("message: ", message)
+        console.log("message.state: ", message?.state)
         if (message.state?.serialized) {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
