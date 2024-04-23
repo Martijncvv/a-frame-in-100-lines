@@ -72,7 +72,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         return new NextResponse('Message not valid', { status: 500 });
     }
 
-    const guess = message.input || '';
+    const guess = message.input.toLowerCase() || '';
 
     let state: IState = {
         solution: "",
@@ -91,11 +91,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             if (parsedState.solution) {
                 if (parsedState.solution === guess) {
                     gameWonMessage = `You won in ${parsedState.counter + 1} tries! ${guess.split(',').map((r) => colorMap[r]).join('')} 🎉`
-                    state = {
-                        solution: "",
-                        guesses: [],
-                        counter: 0
-                    };
                 } else {
                     const feedback = checkGuess(guess, parsedState.solution);
                     state = {
@@ -111,7 +106,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     ...parsedState,
                     solution : newSolution,
                     guesses: [feedback],
-                    counter: parsedState.counter + 1,
+                    counter: 0
                 };
             }
         }
