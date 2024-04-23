@@ -123,18 +123,22 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 {
                     label: `${checkGuess(guess, state.solution)}`,
                     action: 'post',
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay`,
                 },
                 {
                     label: `Sol: ${ state.solution ?  state.solution : "-"}`,
                     action: 'post',
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay`,
                 },
                 {
                     label: `G1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
                     action: 'post',
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay`,
                 },
                 {
                     label: `G2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
                     action: 'post',
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay`,
                 },
             ],
             input: {
