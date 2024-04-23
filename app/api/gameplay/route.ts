@@ -86,13 +86,18 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
 
+            console.log("parsedState: ", parsedState)
+
             if (parsedState.solution) {
                 if (parsedState.solution.join('') === guess) {
-
+                    state = {
+                        ...parsedState,
+                        guesses: [...parsedState.guesses, '🎉'],
+                    };
                 } else {
                     const feedback = checkGuess(guess, parsedState.solution);
                     state = {
-                        ...parsedState,
+                        solution: parsedState.solution,
                         guesses: [...parsedState.guesses, feedback],
                     };
                 }
@@ -136,9 +141,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             },
             image: {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
-            },
-            state: {
-                serialized: encodeURIComponent(JSON.stringify(state)),
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
