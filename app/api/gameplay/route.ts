@@ -136,7 +136,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
             },
             state: {
-                serialized: JSON.stringify(state),
+                serialized: encodeURIComponent(JSON.stringify(state)),
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
