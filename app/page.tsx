@@ -19,7 +19,7 @@ const frameMetadata = getFrameMetadata({
     src: `${NEXT_PUBLIC_URL}/mastermind-2.png`,
     aspectRatio: '1:1',
   },
-
+  postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
 });
 
 export const metadata: Metadata = {
