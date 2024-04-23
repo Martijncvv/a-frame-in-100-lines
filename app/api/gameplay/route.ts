@@ -90,7 +90,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             console.log("guess: ", guess)
             if (parsedState.solution) {
                 if (parsedState.solution === guess) {
-                    gameWonMessage = "You won! 🎉"
+                    gameWonMessage = `You won! ${guess.split(',').map((r) => colorMap[r]).join('')} 🎉`
                 } else {
                     const feedback = checkGuess(guess, parsedState.solution);
                     state = {
