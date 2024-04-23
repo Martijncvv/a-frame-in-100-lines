@@ -141,7 +141,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             ],
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
             input: {
-                text: 'Your guess (e.g. r,g,b,y)',
+                text: 'Your guess, e.g. r,g,b,y (4 total)',
             },
             image: {
                 src: `${NEXT_PUBLIC_URL}/mastermind-1.png`,
