@@ -91,6 +91,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             if (parsedState.solution) {
                 if (parsedState.solution === guess) {
                     gameWonMessage = `You won in ${parsedState.counter + 1} tries! ${guess.split(',').map((r) => colorMap[r]).join('')} 🎉`
+                    state = {
+                        solution: "",
+                        guesses: [],
+                        counter: -1,
+                    };
                 } else {
                     const feedback = checkGuess(guess, parsedState.solution);
                     state = {
@@ -106,7 +111,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     ...parsedState,
                     solution : newSolution,
                     guesses: [feedback],
-                    counter: 0
+                    counter: parsedState.counter + 1,
                 };
             }
         }
