@@ -86,6 +86,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
 
+            console.log("decodedState: ", decodedState)
             console.log("parsedState: ", parsedState)
 
             if (parsedState.solution) {
@@ -141,6 +142,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             },
             image: {
                 src: `${NEXT_PUBLIC_URL}/park-1.png`,
+            },
+            state: {
+                serialized: encodeURIComponent(JSON.stringify(state)),
             },
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
