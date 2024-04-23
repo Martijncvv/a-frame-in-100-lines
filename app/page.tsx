@@ -16,7 +16,7 @@ const frameMetadata = getFrameMetadata({
     },
   ],
   image: {
-    src: `${NEXT_PUBLIC_URL}/mastermind-2.png`,
+    src: `${NEXT_PUBLIC_URL}/mastermind-1.png`,
     aspectRatio: '1:1',
   },
   postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Martycfly.xyz',
     description: 'Mastermindooo by X: Marty_cfly',
-    images: [`${NEXT_PUBLIC_URL}/mastermind-2.png`],
+    images: [`${NEXT_PUBLIC_URL}/mastermind-1.png`],
   },
   other: {
     ...frameMetadata,

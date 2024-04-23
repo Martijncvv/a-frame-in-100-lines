@@ -119,6 +119,16 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     }
 
 
+    let imageUrl = `${NEXT_PUBLIC_URL}/mastermind-3.png`
+    if (state.counter > 5) {
+        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-4.png`
+    } else if (state.counter > 7) {
+        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-5.png`
+    } else if (state.counter > 10) {
+        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-6.png`
+    }
+
+
     return new NextResponse(
         getFrameHtmlResponse({
             buttons: [
@@ -144,7 +154,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 text: 'Enter guess: r,g,b,y,o (6 total)',
             },
             image: {
-                src: `${NEXT_PUBLIC_URL}/mastermind-3.png`,
+                src: imageUrl,
             },
             state: {
                 solution: state.solution,
