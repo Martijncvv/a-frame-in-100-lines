@@ -146,7 +146,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             state: {
                 serialized: encodeURIComponent(JSON.stringify(state)),
             },
-            postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
+            postUrl: `${NEXT_PUBLIC_URL}/api/gameplay2`,
         }),
     );
 }
