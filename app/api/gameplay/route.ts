@@ -33,13 +33,13 @@ const checkGuess = (guess: string, solution: string) => {
     const length = guessChars.length;
 
     if (guessChars?.length !== 4) {
-        return "Please enter a valid guess"
+        return "Enter a guess"
     }
 
     // First pass to find white pegs (correct color and position)
     for (let i = 0; i < length; i++) {
         if (guessChars[i] === solutionChars[i]) {
-            result.push('wh');
+            result.push('bl');
             // @ts-ignore
             solutionChars[i] = null; // Mark this solution character as matched
             guessChars[i] = null; // Mark this guess character as used
@@ -51,7 +51,7 @@ const checkGuess = (guess: string, solution: string) => {
         if (guessChars[i] !== null) { // Skip already matched guesses
             const index = solutionChars.findIndex((c) => c === guessChars[i]);
             if (index !== -1) {
-                result.push('bl');
+                result.push('wh');
                 // @ts-ignore
                 solutionChars[index] = null; // Mark this solution character as matched
             }
@@ -79,18 +79,18 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         guesses: [],
     };
 
-    try {
+    let gameWonMessage
 
+    try {
         if (message.state?.serialized) {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
 
+            console.log("parsedState.solution: ", parsedState.solution)
+            console.log("guess: ", guess)
             if (parsedState.solution) {
                 if (parsedState.solution === guess) {
-                    state = {
-                        ...parsedState,
-                        guesses: [...parsedState.guesses, '🎉'],
-                    };
+                    gameWonMessage = "You won! 🎉"
                 } else {
                     const feedback = checkGuess(guess, parsedState.solution);
                     state = {
@@ -118,7 +118,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `${checkGuess(guess, state.solution)}`,
+                    label: `${gameWonMessage ? gameWonMessage : checkGuess(guess, state.solution)} `,
                     action: 'post',
                     target: `${NEXT_PUBLIC_URL}/api/gameplay`,
                 },
