@@ -90,7 +90,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             console.log("parsedState: ", parsedState)
 
             if (parsedState.solution) {
-                if (parsedState.solution.join('') === guess) {
+                if (parsedState.solution === guess) {
                     state = {
                         ...parsedState,
                         guesses: [...parsedState.guesses, '🎉'],
