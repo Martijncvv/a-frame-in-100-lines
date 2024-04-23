@@ -118,14 +118,15 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         console.error(e);
     }
 
-    let imageUrl = `${NEXT_PUBLIC_URL}/mastermind-2.png`
-    if (state.counter > 5) {
-        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-4.png`
+    let imageUrl = `${NEXT_PUBLIC_URL}/mastermind-2.png`;
+    if (state.counter > 10) {
+        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-6.png`;
     } else if (state.counter > 7) {
-        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-5.png`
-    } else if (state.counter > 10) {
-        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-6.png`
+        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-5.png`;
+    } else if (state.counter > 4) {
+        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-4.png`;
     }
+
 
     return new NextResponse(
         getFrameHtmlResponse({
