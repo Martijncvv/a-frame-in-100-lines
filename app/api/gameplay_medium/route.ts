@@ -15,12 +15,12 @@ const colorMap: { [key: string]: string } = {
 interface IState {
     solution: string;
     guesses: string[];
+    counter: number;
 }
 
 const getRandomSolution = () => {
-    // const colors = ['r', 'g','b', 'y', "o"];
-    const colors = ['r', 'g','b', 'y'];
-    return Array.from({ length: 4 }, () => colors[Math.floor(Math.random() * colors.length)]).join(',');
+    const colors = ['r', 'g','b', 'y', "o"];
+    return Array.from({ length: 6 }, () => colors[Math.floor(Math.random() * colors.length)]).join(',');
 }
 
 
@@ -33,13 +33,13 @@ const checkGuess = (guess: string, solution: string) => {
     const length = guessChars.length;
 
     if (guessChars?.length !== 4) {
-        return "Please enter a valid guess"
+        return "Enter a guess"
     }
 
     // First pass to find white pegs (correct color and position)
     for (let i = 0; i < length; i++) {
         if (guessChars[i] === solutionChars[i]) {
-            result.push('wh');
+            result.push('bl');
             // @ts-ignore
             solutionChars[i] = null; // Mark this solution character as matched
             guessChars[i] = null; // Mark this guess character as used
@@ -51,7 +51,7 @@ const checkGuess = (guess: string, solution: string) => {
         if (guessChars[i] !== null) { // Skip already matched guesses
             const index = solutionChars.findIndex((c) => c === guessChars[i]);
             if (index !== -1) {
-                result.push('bl');
+                result.push('wh');
                 // @ts-ignore
                 solutionChars[index] = null; // Mark this solution character as matched
             }
@@ -71,28 +71,36 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         return new NextResponse('Message not valid', { status: 500 });
     }
 
+    const guess = message?.input?.length > 0 ? message.input.toLowerCase() : '';
 
-    const guess = message.input || '';
     let state: IState = {
         solution: "",
         guesses: [],
+        counter: 0,
     };
+
+    let gameWonMessage
+
     try {
         if (message.state?.serialized) {
             const decodedState = decodeURIComponent(message.state.serialized);
             const parsedState = JSON.parse(decodedState);
 
+
             if (parsedState.solution) {
                 if (parsedState.solution === guess) {
+                    gameWonMessage = `You won in ${parsedState.counter + 1} tries! ${guess.split(',').map((r) => colorMap[r]).join('')} 🎉`
                     state = {
-                        ...parsedState,
-                        guesses: [...parsedState.guesses, '🎉'],
+                        solution: "",
+                        guesses: [],
+                        counter: -1,
                     };
                 } else {
                     const feedback = checkGuess(guess, parsedState.solution);
                     state = {
                         solution: parsedState.solution,
                         guesses: [...parsedState.guesses, feedback],
+                        counter: parsedState.counter + 1,
                     };
                 }
             } else {
@@ -102,51 +110,47 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     ...parsedState,
                     solution : newSolution,
                     guesses: [feedback],
+                    counter: parsedState.counter + 1,
                 };
             }
         }
     } catch (e) {
         console.error(e);
     }
-    console.log("state222: ", state)
 
-    console.log("state.guesses: ", state.guesses)
+
     return new NextResponse(
         getFrameHtmlResponse({
+            buttons: [
+                {
+                    label: `${gameWonMessage ? gameWonMessage : checkGuess(guess, state.solution)} `,
+                    action: 'post',
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
+                },
+                {
+                    label: !gameWonMessage ? `Sol: ${ state.solution ?  state.solution : "-"}` : "",
+                    action: 'post',
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
+                },
+                {
+                    label: !gameWonMessage? `Tries ${state.counter}` : "",
+                    action: 'post',
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
+                },
+
+            ],
+            postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
+            input: {
+                text: 'Your guess (e.g. r,g,b,y,o)',
+            },
+            image: {
+                src: `${NEXT_PUBLIC_URL}/mastermind-3.png`,
+            },
             state: {
                 solution: state.solution,
                 guesses: state.guesses,
+                counter: state.counter,
             },
-            buttons: [
-                {
-                    label: `${checkGuess(guess, state.solution)}`,
-                    action: 'post',
-                    target: `${NEXT_PUBLIC_URL}/api/gameplay`,
-                },
-                {
-                    label: `Sol: ${ state.solution ?  state.solution : "-"}`,
-                    action: 'post',
-                    target: `${NEXT_PUBLIC_URL}/api/gameplay`,
-                },
-                // {
-                //     label: `G1: ${state.guesses[0] ? state.guesses[0] : "-"}`,
-                //     action: 'post',
-                //     target: `${NEXT_PUBLIC_URL}/api/gameplay`,
-                // },
-                // {
-                //     label: `G2: ${state.guesses[1] ? state.guesses[1] : "-"}`,
-                //     action: 'post',
-                //     target: `${NEXT_PUBLIC_URL}/api/gameplay`,
-                // },
-            ],
-            input: {
-                text: 'Your guess (e.g. r,g,b,y)',
-            },
-            image: {
-                src: `${NEXT_PUBLIC_URL}/park-2.png`,
-            },
-
-            postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
     );
 }

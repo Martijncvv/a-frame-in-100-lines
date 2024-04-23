@@ -19,7 +19,6 @@ interface IState {
 }
 
 const getRandomSolution = () => {
-    // const colors = ['r', 'g','b', 'y', "o"];
     const colors = ['r', 'g','b', 'y'];
     return Array.from({ length: 4 }, () => colors[Math.floor(Math.random() * colors.length)]).join(',');
 }
@@ -126,20 +125,21 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 {
                     label: `${gameWonMessage ? gameWonMessage : checkGuess(guess, state.solution)} `,
                     action: 'post',
-                    target: `${NEXT_PUBLIC_URL}/api/gameplay`,
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
                 },
                 {
                     label: !gameWonMessage ? `Sol: ${ state.solution ?  state.solution : "-"}` : "",
                     action: 'post',
-                    target: `${NEXT_PUBLIC_URL}/api/gameplay`,
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
                 },
                 {
                     label: !gameWonMessage? `Tries ${state.counter}` : "",
                     action: 'post',
-                    target: `${NEXT_PUBLIC_URL}/api/gameplay2`,
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
                 },
 
             ],
+            postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
             input: {
                 text: 'Your guess (e.g. r,g,b,y)',
             },
@@ -151,7 +151,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 guesses: state.guesses,
                 counter: state.counter,
             },
-            postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
         }),
     );
 }

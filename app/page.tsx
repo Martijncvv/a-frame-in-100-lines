@@ -5,8 +5,14 @@ import { NEXT_PUBLIC_URL } from './config';
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
-      label: 'Start Mastermind',
+      label: 'Start Easy Mastermind',
       action: 'post',
+      target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
+    },
+    {
+      label: 'Start Medium Mastermind',
+      action: 'post',
+      target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
     },
   ],
   image: {
@@ -14,7 +20,7 @@ const frameMetadata = getFrameMetadata({
     aspectRatio: '1:1',
   },
 
-  postUrl: `${NEXT_PUBLIC_URL}/api/gameplay`,
+  postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
 
 });
 
