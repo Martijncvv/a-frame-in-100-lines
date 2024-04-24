@@ -16,7 +16,12 @@ const frameMetadata = getFrameMetadata({
     },
   ],
   image: {
-    src: `${NEXT_PUBLIC_URL}/mastermind-1.png`,
+    src: `${NEXT_PUBLIC_URL}/api/background-image?state=${encodeURIComponent(JSON.stringify({
+        solution: '',
+        guesses: [],
+        counter: 0,
+        gameWon: 'false',
+    }))}`
   },
   postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
 });
