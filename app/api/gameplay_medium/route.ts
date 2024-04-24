@@ -16,6 +16,7 @@ interface IState {
     solution: string;
     guesses: string[];
     counter: number;
+    gameWon: boolean;
 }
 
 const getRandomSolution = () => {
@@ -81,6 +82,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         solution: "",
         guesses: [],
         counter: 0,
+        gameWon: false
     };
 
     let gameWonMessage
@@ -98,6 +100,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                         solution: "",
                         guesses: [],
                         counter: -1,
+                        gameWon: true
                     };
                 } else {
                     const feedback = checkGuess(guess, parsedState.solution);
@@ -105,6 +108,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                         solution: parsedState.solution,
                         guesses: [...parsedState.guesses, feedback],
                         counter: parsedState.counter + 1,
+                        gameWon: false
                     };
                 }
             } else {
@@ -115,6 +119,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     solution : newSolution,
                     guesses: [feedback],
                     counter: parsedState.counter + 1,
+                    gameWon: false
                 };
             }
         }
@@ -166,6 +171,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 solution: state.solution,
                 guesses: state.guesses,
                 counter: state.counter,
+                gameWon: state.gameWon
             },
         }),
     );

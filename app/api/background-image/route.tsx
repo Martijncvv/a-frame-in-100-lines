@@ -13,6 +13,7 @@ export async function GET(req: NextRequest) {
     solution: "",
     guesses: [],
     counter: 0,
+    gameWon: false
   };
 
     interface GameInfoProps {
@@ -26,7 +27,7 @@ export async function GET(req: NextRequest) {
     const GameInfo: React.FC<GameInfoProps> = ({ title, value }) => {
         return (
             <div style={{
-                display: 'flex', // Explicitly set display to flex
+                display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -40,7 +41,7 @@ export async function GET(req: NextRequest) {
                 color: '#333',
                 boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
             }}>
-                <strong style={{ display: 'block' }}>{title}</strong>  // Ensuring each child also respects display rules if necessary
+                <strong style={{ display: 'block' }}>{title}</strong>
                 <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px', textAlign: 'center' }}>
                     {Array.isArray(value) ? value.map((item, index) => (
                         <div key={index} style={{ margin: '2px 0' }}>{item}</div>
@@ -60,14 +61,14 @@ export async function GET(req: NextRequest) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: "#3399ff", // Lighter blue for a more playful look
+                    backgroundColor: "#063e7c",
                     color: 'white',
-                    fontFamily: 'Comic Sans MS, cursive, sans-serif', // More playful font
+                    fontFamily: 'Comic Sans MS, cursive, sans-serif',
                     padding: '20px',
                     boxSizing: 'border-box',
                 }}
             >
-                <h1 style={{ color: '#ffcc00', marginBottom: '20px' }}>Mastermind Game Stats</h1>
+                <h1 style={{ color: '#f66f06', marginBottom: '20px' }}>Mastermind Game Stats</h1>
                 <GameInfo title="Guesses" value={state.guesses} />
                 <GameInfo title="Number of Tries" value={state.counter} />
                 <GameInfo title="Current Solution" value={state.solution || "Not set yet"} />
