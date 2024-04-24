@@ -77,7 +77,7 @@ export async function GET(req: NextRequest) {
                     }}
                     >
                         <p style={{fontSize: '22px', color: '#f66f06' }}>
-                            Great job! You've solved the puzzle in {state.counter} tries.
+                            Great job! You've solved the puzzle in {state.counter} tries. {state.counter < 5 ? <span>Less than 5, Gm Vitalik</span>  : <span>More than 4... left-curvers unite!</span>}
                         </p>
                         <p style={{fontSize: '22px', color: '#f66f06'}}>
                             {state.guesses[state.guesses.length - 1]}
@@ -109,14 +109,14 @@ export async function GET(req: NextRequest) {
                             textAlign: 'center',
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
                         }}>
+                            {state.counter < 5 &&
+                                (
                             <p>Select your guesses from the colors: 🔴 (r), 🟢 (g), 🔵 (b), 🟡 (y), and 🟠
-                                (o).
-                                Enter a sequence of four or six characters, separated by commas (e.g., r,g,b,y,o,r).</p>
-                            <p>Feedback is provided using colored circles: a black circle ⚫ indicates that a color is both
-                                correct
-                                and correctly positioned, while a white circle ⚪ signifies that the color is correct but
-                                in the
-                                wrong position.</p>
+                                (o).                                Enter a sequence of four or six characters (r,g,b,y,o,r)</p>
+                                )
+                            }
+                            <p>Feedback:black ⚫ indicates that a color is both correct and correctly positioned. White ⚪ signifies that the color is correct but
+                                in the wrong position.</p>
                         </div>
                     </div>
                 )}
