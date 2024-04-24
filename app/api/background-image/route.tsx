@@ -109,13 +109,6 @@ export async function GET(req: NextRequest) {
                             textAlign: 'center',
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
                         }}>
-                            r: '🔴',
-                            g: '🟢',
-                            b: '🔵',
-                            y: '🟡',
-                            o: '🟠',
-                            wh: '⚪',
-                            bl: '⚫',
                             <p>Select your guesses from the colors: 🔴 (r), 🟢 (g), 🔵 (b), 🟡 (y), and 🟠
                                 (o).
                                 Enter a sequence of four or six characters, separated by commas (e.g., r,g,b,y,o,r).</p>
