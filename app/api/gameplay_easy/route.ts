@@ -16,6 +16,7 @@ interface IState {
     solution: string;
     guesses: string[];
     counter: number;
+    gameWon: string;
 }
 
 const getRandomSolution = () => {
@@ -28,12 +29,12 @@ const getRandomSolution = () => {
 const checkGuess = (guess: string, solution: string) => {
     const result: any = [];
     const solutionChars = solution.split(',');
-    const guessEmojis = guess.split(',').map((r) => colorMap[r]).join('');
+    const guessEmojis = guess.split(',').map((r) => colorMap[r]).join(' ');
     const guessChars: any  = guess.split(',');
     const length = guessChars.length;
 
     if (guessChars?.length !== 4) {
-        return `Enter guess: r,g,b,y,o (4 total)`
+        return `invalid input`
     }
 
     // First pass to find white pegs (correct color and position)
@@ -58,9 +59,13 @@ const checkGuess = (guess: string, solution: string) => {
         }
     }
 
-    const feedback =  result?.length > 0 ? result.map((r: any) => colorMap[r]).join('') : '';
+    if (result.length === 0) {
+        return `${guessEmojis} - None`;
+    }
 
-    return `${guessEmojis}-${feedback}`;
+    const feedback =  result?.length > 0 ? result.map((r: any) => colorMap[r]).join(' ') : '';
+
+    return `${guessEmojis} - ${feedback}`;
 }
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
@@ -77,6 +82,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         solution: "",
         guesses: [],
         counter: 0,
+        gameWon: "false",
     };
 
     let gameWonMessage
@@ -93,7 +99,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     state = {
                         solution: "",
                         guesses: [],
-                        counter: -1,
+                        counter: parsedState.counter + 1,
+                        gameWon: "true",
                     };
                 } else {
                     const feedback = checkGuess(guess, parsedState.solution);
@@ -101,6 +108,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                         solution: parsedState.solution,
                         guesses: [...parsedState.guesses, feedback],
                         counter: parsedState.counter + 1,
+                        gameWon: "false",
                     };
                 }
             } else {
@@ -111,6 +119,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     solution : newSolution,
                     guesses: [feedback],
                     counter: parsedState.counter + 1,
+                    gameWon: "false",
                 };
             }
         }
@@ -118,33 +127,20 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         console.error(e);
     }
 
-    let imageUrl = `${NEXT_PUBLIC_URL}/mastermind-2.png`;
-    if (state.counter > 10) {
-        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-6.png`;
-    } else if (state.counter > 7) {
-        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-5.png`;
-    } else if (state.counter > 4) {
-        imageUrl = `${NEXT_PUBLIC_URL}/mastermind-4.png`;
-    }
-
+    const imageUrl = `${NEXT_PUBLIC_URL}/api/background-image?state=${encodeURIComponent(JSON.stringify(state))}`;
 
     return new NextResponse(
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `${gameWonMessage ? gameWonMessage : checkGuess(guess, state.solution)} `,
+                    label: `${gameWonMessage ? gameWonMessage : "Guess"} `,
                     action: 'post',
-                    target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
-                },
-                {
-                    label: !gameWonMessage? `Tries ${state.counter}` : "",
-                    action: 'post',
-                    target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
                 },
             ],
-            postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
+            postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
             input: {
-                text: 'Enter guess: r,g,b,y,o (4 total)',
+                text: 'Enter guess: r,g,b,y,o (6 total)',
             },
             image: {
                 src: imageUrl,
@@ -153,6 +149,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 solution: state.solution,
                 guesses: state.guesses,
                 counter: state.counter,
+                gameWon: state.gameWon,
             },
         }),
     );
