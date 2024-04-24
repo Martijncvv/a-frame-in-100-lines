@@ -31,17 +31,17 @@ export async function GET(req: NextRequest) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: 'rgba(0,0,0,0.8)',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent for dark mode
                 borderRadius: '10px',
                 padding: '10px 20px',
-                margin: '5px',
+                margin: '10px 0', // Adjust margin for better spacing
                 width: '90%',
                 maxWidth: '500px',
                 fontSize: '18px',
-                color: '#333',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                color: 'rgba(255, 255, 255, 0.9)', // Light text for dark background
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)', // Softer shadow in dark mode
             }}>
-                <strong style={{ display: 'block' }}>{title}</strong>
+                <strong style={{ display: 'block', color: '#aad1f9' }}>{title}</strong> // Use a soft blue for titles
                 <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px', textAlign: 'center' }}>
                     {Array.isArray(value) ? value.map((item, index) => (
                         <div key={index} style={{ margin: '2px 0' }}>{item}</div>
@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: "#063e7c",
+                    backgroundColor: "#0a0f0d", // Darker background for more depth
                     color: 'white',
                     fontFamily: 'Comic Sans MS, cursive, sans-serif',
                     padding: '20px',
@@ -81,5 +81,5 @@ export async function GET(req: NextRequest) {
     );
 }
 
-
 export const runtime = 'edge';
+
