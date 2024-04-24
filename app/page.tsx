@@ -23,15 +23,20 @@ const frameMetadata = getFrameMetadata({
 });
 
 export const metadata: Metadata = {
-  title: 'Mastermindcfly',
-  description: 'Mastermind tiempo',
+  title: 'Mastermind by X: Marty_cfly',
+  description: 'Mastermind time by X: Marty_cfly',
   openGraph: {
-    title: 'Martycfly.xyz',
+    title: 'Mastermind by X: Marty_cfly',
     description: 'Mastermindooo by X: Marty_cfly',
     images: [`${NEXT_PUBLIC_URL}/mastermind-1.png`],
   },
   other: {
     ...frameMetadata,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@Marty_cfly',
+    images: [`${NEXT_PUBLIC_URL}/mastermind-1.png`],
   },
 };
 

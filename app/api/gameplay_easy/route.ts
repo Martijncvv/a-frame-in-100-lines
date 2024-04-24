@@ -141,12 +141,6 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     action: 'post',
                     target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
                 },
-                // {
-                //     label: !gameWonMessage ? `Sol: ${ state.solution ?  state.solution : "-"}` : "",
-                //     action: 'post',
-                //     target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
-                // },
-
             ],
             postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
             input: {
