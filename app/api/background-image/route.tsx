@@ -77,10 +77,15 @@ export async function GET(req: NextRequest) {
                     }}
                     >
                         <p style={{fontSize: '22px', color: '#f66f06' }}>
-                            Great job! You've solved the puzzle in {state.counter} tries. {state.counter < 5 ? <span>Less than 5, Gm Vitalik</span>  : <span>More than 4... left-curvers unite!</span>}
+                            Great job! You've solved the puzzle in {state.counter} tries.
                         </p>
                         <p style={{fontSize: '22px', color: '#f66f06'}}>
                             {state.guesses[state.guesses.length - 1]}
+                        </p>
+                        <p style={{fontSize: '22px', color: '#f66f06'}}>
+                            {state.counter < 5 ? <span>{state.counter} tries, Gm Vitalik</span>  : state.counter < 7 ?
+                                <span>{state.counter} tries. Mid-curver! NGMI</span> :
+                                <span>{state.counter} tries.. left-curvers unite!</span>}
                         </p>
                     </div>
                 ) : (
@@ -91,9 +96,11 @@ export async function GET(req: NextRequest) {
                         justifyContent: 'center',
                     }}
                     >
-                        <GameInfo title="Guesses" value={state.guesses}/>
+                        {state.guesses.length > 0 && (
+                                <GameInfo title="Guesses" value={state.guesses}/>
+                            )}
                         <GameInfo title="Number of Tries" value={state.counter}/>
-                        {/*<GameInfo title="Current Solution" value={state.solution || "Not set yet"}/>*/}
+
                         <div style={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -115,7 +122,7 @@ export async function GET(req: NextRequest) {
                                 (o).                                Enter a sequence of four or six characters (r,g,b,y,o,r)</p>
                                 )
                             }
-                            <p>Feedback:black ⚫ indicates that a color is both correct and correctly positioned. White ⚪ signifies that the color is correct but
+                            <p>Feedback: Black ⚫ indicates that a color is both correct and correctly positioned. White ⚪ signifies that the color is correct but
                                 in the wrong position.</p>
                         </div>
                     </div>
