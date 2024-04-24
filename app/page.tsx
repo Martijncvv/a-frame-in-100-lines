@@ -15,8 +15,6 @@ const frameMetadata = getFrameMetadata({
       target: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
     },
   ],
-
-
   image: {
     src: `${NEXT_PUBLIC_URL}/mastermind-1.png`,
     aspectRatio: '1:1',
