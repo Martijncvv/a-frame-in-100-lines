@@ -16,7 +16,7 @@ const frameMetadata = getFrameMetadata({
     },
   ],
   image: {
-    src: `${NEXT_PUBLIC_URL}/api/background-image?state=""`,
+    src: `${NEXT_PUBLIC_URL}/api/background-image?state=${encodeURIComponent(JSON.stringify({}))}`
   },
   postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
 });
