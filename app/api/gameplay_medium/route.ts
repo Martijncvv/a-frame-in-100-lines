@@ -65,7 +65,7 @@ const checkGuess = (guess: string, solution: string) => {
 
     const feedback =  result?.length > 0 ? result.map((r: any) => colorMap[r]).join(' ') : '';
 
-    return `${guessEmojis}-${feedback}`;
+    return `${guessEmojis} - ${feedback}`;
 }
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
