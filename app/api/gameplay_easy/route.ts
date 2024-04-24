@@ -135,12 +135,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                 {
                     label: `${gameWonMessage ? gameWonMessage : "Guess"} `,
                     action: 'post',
-                    target: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
+                    target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
                 },
             ],
-            postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
+            postUrl: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
             input: {
-                text: 'Enter guess: r,g,b,y,o (6 total)',
+                text: 'Enter guess: r,g,b,y,o (4 total)',
             },
             image: {
                 src: imageUrl,
