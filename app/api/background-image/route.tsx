@@ -14,27 +14,27 @@ export async function GET(req: NextRequest) {
     guesses: [],
     counter: 0,
   };
-    
+
     console.log("state123: ", state)
 
     const GameInfo = ({ title, value }: any) => {
         return (
             <div style={{
-                display: 'flex', // Explicitly set display to flex
+                display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
                 borderRadius: '10px',
                 padding: '10px 20px',
-                margin: '5px',
+                margin: '10px 0',
                 width: '90%',
                 maxWidth: '500px',
                 fontSize: '18px',
-                color: '#333',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                color: 'rgba(255, 255, 255, 0.9)',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
             }}>
-                <strong style={{ display: 'block' }}>{title}</strong>  // Ensuring each child also respects display rules if necessary
+                <strong style={{ display: 'block', color: '#aad1f9' }}>{title}</strong>
                 <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px', textAlign: 'center' }}>
                     {Array.isArray(value) ? value.map((item, index) => (
                         <div key={index} style={{ margin: '2px 0' }}>{item}</div>
@@ -54,17 +54,33 @@ export async function GET(req: NextRequest) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: "#3399ff", // Lighter blue for a more playful look
+                    backgroundColor: "#0a0f0d",
                     color: 'white',
                     fontFamily: 'Comic Sans MS, cursive, sans-serif', // More playful font
                     padding: '20px',
                     boxSizing: 'border-box',
                 }}
             >
-                <h1 style={{ color: '#ffcc00', marginBottom: '20px' }}>Mastermind Game Stats</h1>
-                <GameInfo title="Guesses" value={state.guesses} />
-                <GameInfo title="Number of Tries" value={state.counter} />
-                <GameInfo title="Current Solution" value={state.solution || "Not set yet"} />
+                <h1 style={{color: '#f66f06', marginBottom: '20px'}}>Mastermind Game Stats</h1>
+                <GameInfo title="Guesses" value={state.guesses}/>
+                <GameInfo title="Number of Tries" value={state.counter}/>
+                <GameInfo title="Current Solution" value={state.solution || "Not set yet"}/>
+                <div style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    borderRadius: '10px',
+                    padding: '20px',
+                    margin: '10px 0',
+                    width: '80%',
+                    fontSize: '16px',
+                    color: '#aad1f9',
+                    textAlign: 'center',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+                }}>
+                    <p>Choose from 'r', 'g', 'b', 'y', 'o' and separate choices with a comma. There should be 6 chars
+                        total.</p>
+                    <p>A white feedback circle indicates an option is in the correct color and position. A black circle
+                        indicates the correct color but wrong position.</p>
+                </div>
             </div>
         ),
         {
