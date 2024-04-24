@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                backgroundColor: 'rgba(0,0,0,0.8)',
                 borderRadius: '10px',
                 padding: '10px 20px',
                 margin: '5px',
