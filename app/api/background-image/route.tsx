@@ -33,8 +33,8 @@ export async function GET(req: NextRequest) {
                 color: 'rgba(255, 255, 255, 0.9)',
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
             }}>
-                <strong style={{ display: 'block', color: '#aad1f9' }}>{title}</strong>
-                <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px', textAlign: 'center' }}>
+                <strong style={{ display: 'block', color: '#aad1f9', fontSize: '22px' }}>{title}</strong>
+                <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px', textAlign: 'center', fontSize: '20px' }}>
                     {Array.isArray(value) ? value.map((item, index) => (
                         <div key={index} style={{ margin: '2px 0' }}>{item}</div>
                     )) : <span>{value}</span>}
@@ -60,10 +60,10 @@ export async function GET(req: NextRequest) {
                     boxSizing: 'border-box',
                 }}
             >
-                <h1 style={{color: '#f66f06', marginBottom: '20px'}}>
+                <h1 style={{color: '#f66f06', marginBottom: '20px', fontSize: '28px'}}>
                     {state.gameWon === "true" ? 'Congratulations, You Won!' : 'Mastermind Game Stats'}
                 </h1>
-                <h2 style={{color: '#f66f06', marginBottom: '20px'}}>
+                <h2 style={{color: '#f66f06', marginBottom: '20px', fontSize: '24px'}}>
                     By X: Marty_cfly
                 </h2>
 
@@ -76,10 +76,10 @@ export async function GET(req: NextRequest) {
                         justifyContent: 'center',
                     }}
                     >
-                        <p style={{fontSize: '20px', color: '#f66f06'}}>
+                        <p style={{fontSize: '22px', color: '#f66f06' }}>
                             Great job! You've solved the puzzle in {state.counter} tries.
                         </p>
-                        <p style={{fontSize: '20px', color: '#f66f06'}}>
+                        <p style={{fontSize: '22px', color: '#f66f06'}}>
                             {state.guesses[state.guesses.length - 1]}
                         </p>
                     </div>
@@ -104,7 +104,7 @@ export async function GET(req: NextRequest) {
                             padding: '20px',
                             margin: '5px 0',
                             width: '80%',
-                            fontSize: '16px',
+                            fontSize: '20px',
                             color: '#aad1f9',
                             textAlign: 'center',
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
