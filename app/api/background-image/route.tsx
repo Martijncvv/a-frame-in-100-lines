@@ -2,9 +2,6 @@ import { ImageResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 
-// -----------------------------------------------------------------------------
-// Image
-// -----------------------------------------------------------------------------
 
 export async function GET(req: NextRequest) {
 
