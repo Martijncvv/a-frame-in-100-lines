@@ -83,8 +83,8 @@ export async function GET(req: NextRequest) {
                             {state.guesses[state.guesses.length - 1]}
                         </p>
                         <p style={{fontSize: '22px', color: '#f66f06'}}>
-                            {state.counter < 5 ? <span>{state.counter} tries, Gm Vitalik</span>  : state.counter < 7 ?
-                                <span>{state.counter} tries. Mid-curver! NGMI</span> :
+                            {state.counter < 5 ? <span>{state.counter} tries.. Gm Vitalik!</span>  : state.counter < 7 ?
+                                <span>{state.counter} tries.. Mid-curver! NGMI</span> :
                                 <span>{state.counter} tries.. left-curvers unite!</span>}
                         </p>
                     </div>

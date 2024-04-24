@@ -5,12 +5,12 @@ import { NEXT_PUBLIC_URL } from './config';
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
-      label: 'Start Easy Mastermind',
+      label: 'Beginner Mode',
       action: 'post',
       target: `${NEXT_PUBLIC_URL}/api/gameplay_easy`,
     },
     {
-      label: 'Start Medium Mastermind',
+      label: 'Advanced Mode',
       action: 'post',
       target: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
     },
