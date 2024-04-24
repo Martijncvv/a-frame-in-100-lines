@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
 
 
     const stateSearchParam = req.nextUrl.searchParams.get('state');
-    console.log("stateSearchParam12", stateSearchParam)
+
 
   const state = stateSearchParam ? JSON.parse(decodeURIComponent(stateSearchParam)) : {
     solution: "",
@@ -57,33 +57,46 @@ export async function GET(req: NextRequest) {
                     justifyContent: 'center',
                     backgroundColor: "#0a0f0d",
                     color: 'white',
-                    fontFamily: 'Comic Sans MS, cursive, sans-serif', // More playful font
+                    fontFamily: 'Comic Sans MS, cursive, sans-serif',
                     padding: '20px',
                     boxSizing: 'border-box',
                 }}
             >
-                <h1 style={{color: '#f66f06', marginBottom: '20px'}}>Mastermind Game Stats</h1>
-                <GameInfo title="Guesses" value={state.guesses}/>
-                <GameInfo title="Number of Tries" value={state.counter}/>
-                <GameInfo title="Current Solution" value={state.solution || "Not set yet"}/>
-                <div style={{
-                    display: 'flex',
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    borderRadius: '10px',
-                    padding: '20px',
-                    margin: '10px 0',
-                    width: '80%',
-                    fontSize: '16px',
-                    color: '#aad1f9',
-                    textAlign: 'center',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
-                }}>
-                    <p>Choose from r, g, b, y, o and separate choices with a comma. There should be 6 chars
-                        total.</p>
-                    <p>A white feedback circle indicates an option is in the correct color and position. A black circle
-                        indicates the correct color but wrong position.</p>
-                </div>
-
+                <h1 style={{ color: '#f66f06', marginBottom: '20px' }}>
+                    {state.gameWon === "true" ? 'Congratulations, You Won!' : 'Mastermind Game Stats'}
+                </h1>
+                {state.gameWon === "true" ? (
+                    <p style={{ fontSize: '20px', color: '#f66f06' }}>
+                        Great job! You've solved the puzzle in {state.counter} tries.
+                    </p>
+                ) : (
+                    <>
+                        <GameInfo title="Guesses" value={state.guesses}/>
+                        <GameInfo title="Number of Tries" value={state.counter}/>
+                        <GameInfo title="Current Solution" value={state.solution || "Not set yet"}/>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                            borderRadius: '10px',
+                            padding: '20px',
+                            margin: '10px 0',
+                            width: '80%',
+                            fontSize: '16px',
+                            color: '#aad1f9',
+                            textAlign: 'center',
+                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+                        }}>
+                            <p>Select your guesses from the colors: red (r), green (g), blue (b), yellow (y), and orange (o).
+                                Enter a sequence of six characters, separated by commas (e.g., r,g,b,y,o,r).</p>
+                            <p>Feedback is provided using colored circles: a white circle indicates that a color is both correct
+                                and correctly positioned, while a black circle signifies that the color is correct but in the
+                                wrong position.</p>
+                        </div>
+                    </>
+                )}
             </div>
         ),
         {
