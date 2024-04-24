@@ -58,6 +58,10 @@ const checkGuess = (guess: string, solution: string) => {
         }
     }
 
+    if (result.length === 0) {
+        return `${guessEmojis} - None`;
+    }
+
     const feedback =  result?.length > 0 ? result.map((r: any) => colorMap[r]).join('') : '';
 
     return `${guessEmojis}-${feedback}`;
