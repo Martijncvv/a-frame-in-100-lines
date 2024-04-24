@@ -60,9 +60,14 @@ export async function GET(req: NextRequest) {
                     boxSizing: 'border-box',
                 }}
             >
-                <h1 style={{ color: '#f66f06', marginBottom: '20px' }}>
+                <h1 style={{color: '#f66f06', marginBottom: '20px'}}>
                     {state.gameWon === "true" ? 'Congratulations, You Won!' : 'Mastermind Game Stats'}
                 </h1>
+                <h2 style={{color: '#f66f06', marginBottom: '20px'}}>
+                    By X: Marty_cfly
+                </h2>
+
+
                 {state.gameWon === "true" ? (
                     <div style={{
                         display: 'flex',
@@ -71,10 +76,10 @@ export async function GET(req: NextRequest) {
                         justifyContent: 'center',
                     }}
                     >
-                        <p style={{ fontSize: '20px', color: '#f66f06' }}>
+                        <p style={{fontSize: '20px', color: '#f66f06'}}>
                             Great job! You've solved the puzzle in {state.counter} tries.
                         </p>
-                        <p style={{ fontSize: '20px', color: '#f66f06' }}>
+                        <p style={{fontSize: '20px', color: '#f66f06'}}>
                             {state.guesses[state.guesses.length - 1]}
                         </p>
                     </div>
@@ -104,10 +109,13 @@ export async function GET(req: NextRequest) {
                             textAlign: 'center',
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
                         }}>
-                            <p>Select your guesses from the colors: red (r), green (g), blue (b), yellow (y), and orange (o).
+                            <p>Select your guesses from the colors: red (r), green (g), blue (b), yellow (y), and orange
+                                (o).
                                 Enter a sequence of four or six characters, separated by commas (e.g., r,g,b,y,o,r).</p>
-                            <p>Feedback is provided using colored circles: a white circle indicates that a color is both correct
-                                and correctly positioned, while a black circle signifies that the color is correct but in the
+                            <p>Feedback is provided using colored circles: a white circle indicates that a color is both
+                                correct
+                                and correctly positioned, while a black circle signifies that the color is correct but
+                                in the
                                 wrong position.</p>
                         </div>
                     </div>
