@@ -4,17 +4,15 @@ import type { NextRequest } from 'next/server';
 
 
 export async function GET(req: NextRequest) {
-
-
     const stateSearchParam = req.nextUrl.searchParams.get('state');
 
 
-  const state = stateSearchParam ? JSON.parse(decodeURIComponent(stateSearchParam)) : {
-    solution: "",
-    guesses: [],
-    counter: 0,
-      gameWon: "false",
-  };
+      const state = stateSearchParam ? JSON.parse(decodeURIComponent(stateSearchParam)) : {
+        solution: "",
+        guesses: [],
+        counter: 0,
+          gameWon: "false",
+      };
 
     console.log("state123: ", state)
 
