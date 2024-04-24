@@ -90,7 +90,7 @@ export async function GET(req: NextRequest) {
                     >
                         <GameInfo title="Guesses" value={state.guesses}/>
                         <GameInfo title="Number of Tries" value={state.counter}/>
-                        <GameInfo title="Current Solution" value={state.solution || "Not set yet"}/>
+                        {/*<GameInfo title="Current Solution" value={state.solution || "Not set yet"}/>*/}
                         <div style={{
                             display: 'flex',
                             flexDirection: 'column',
