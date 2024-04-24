@@ -66,9 +66,20 @@ export async function GET(req: NextRequest) {
                     {state.gameWon === "true" ? 'Congratulations, You Won!' : 'Mastermind Game Stats'}
                 </h1>
                 {state.gameWon === "true" ? (
-                    <p style={{ fontSize: '20px', color: '#f66f06' }}>
-                        Great job! You've solved the puzzle in {state.counter} tries.
-                    </p>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                    >
+                        <p style={{ fontSize: '20px', color: '#f66f06' }}>
+                            Great job! You've solved the puzzle in {state.counter} tries.
+                        </p>
+                        <p style={{ fontSize: '20px', color: '#f66f06' }}>
+                            {state.guesses[state.guesses.length - 1]}
+                        </p>
+                    </div>
                 ) : (
                     <div style={{
                         display: 'flex',
@@ -96,7 +107,7 @@ export async function GET(req: NextRequest) {
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
                         }}>
                             <p>Select your guesses from the colors: red (r), green (g), blue (b), yellow (y), and orange (o).
-                                Enter a sequence of six characters, separated by commas (e.g., r,g,b,y,o,r).</p>
+                                Enter a sequence of four or six characters, separated by commas (e.g., r,g,b,y,o,r).</p>
                             <p>Feedback is provided using colored circles: a white circle indicates that a color is both correct
                                 and correctly positioned, while a black circle signifies that the color is correct but in the
                                 wrong position.</p>
