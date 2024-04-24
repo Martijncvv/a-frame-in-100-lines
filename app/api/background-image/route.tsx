@@ -102,19 +102,26 @@ export async function GET(req: NextRequest) {
                             backgroundColor: 'rgba(255, 255, 255, 0.1)',
                             borderRadius: '10px',
                             padding: '20px',
-                            margin: '10px 0',
+                            margin: '5px 0',
                             width: '80%',
                             fontSize: '16px',
                             color: '#aad1f9',
                             textAlign: 'center',
                             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
                         }}>
-                            <p>Select your guesses from the colors: red (r), green (g), blue (b), yellow (y), and orange
+                            r: '🔴',
+                            g: '🟢',
+                            b: '🔵',
+                            y: '🟡',
+                            o: '🟠',
+                            wh: '⚪',
+                            bl: '⚫',
+                            <p>Select your guesses from the colors: 🔴 (r), 🟢 (g), 🔵 (b), 🟡 (y), and 🟠
                                 (o).
                                 Enter a sequence of four or six characters, separated by commas (e.g., r,g,b,y,o,r).</p>
-                            <p>Feedback is provided using colored circles: a white circle indicates that a color is both
+                            <p>Feedback is provided using colored circles: a black circle ⚫ indicates that a color is both
                                 correct
-                                and correctly positioned, while a black circle signifies that the color is correct but
+                                and correctly positioned, while a white circle ⚪ signifies that the color is correct but
                                 in the
                                 wrong position.</p>
                         </div>

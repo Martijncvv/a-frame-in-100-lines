@@ -37,7 +37,7 @@ const checkGuess = (guess: string, solution: string) => {
         return `invalid input`
     }
 
-    // First pass to find white pegs (correct color and position)
+    // First pass to find black pegs (correct color and position)
     for (let i = 0; i < length; i++) {
         if (guessChars[i] === solutionChars[i]) {
             result.push('bl');
@@ -47,7 +47,7 @@ const checkGuess = (guess: string, solution: string) => {
         }
     }
 
-    // Second pass to find black pegs (correct color, wrong position)
+    // Second pass to find white pegs (correct color, wrong position)
     for (let i = 0; i < length; i++) {
         if (guessChars[i] !== null) { // Skip already matched guesses
             const index = solutionChars.findIndex((c) => c === guessChars[i]);
