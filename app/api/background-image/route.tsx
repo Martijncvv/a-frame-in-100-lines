@@ -66,6 +66,10 @@ export async function GET(req: NextRequest) {
                 <GameInfo title="Number of Tries" value={state.counter}/>
                 <GameInfo title="Current Solution" value={state.solution || "Not set yet"}/>
                 <div style={{
+                    display: 'flex',
+                    flexDirection: 'column', // Ensures the paragraphs are stacked vertically
+                    alignItems: 'center', // Centers the content horizontally
+                    justifyContent: 'center', // Centers the content vertically if there's extra space
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     borderRadius: '10px',
                     padding: '20px',
@@ -76,10 +80,11 @@ export async function GET(req: NextRequest) {
                     textAlign: 'center',
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
                 }}>
-                    <p>Choose from r, g, b, y, o and separate choices with a comma. There should be 6 chars
-                        total.</p>
-                    <p>A white feedback circle indicates an option is in the correct color and position. A black circle
-                        indicates the correct color but wrong position.</p>
+                    <p>Select your guesses from the colors: red (r), green (g), blue (b), yellow (y), and orange (o).
+                        Enter a sequence of six characters, separated by commas (e.g., r,g,b,y,o,r).</p>
+                    <p>Feedback is provided using colored circles: a white circle indicates that a color is both correct
+                        and correctly positioned, while a black circle signifies that the color is correct but in the
+                        wrong position.</p>
                 </div>
 
             </div>

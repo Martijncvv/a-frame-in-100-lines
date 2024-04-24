@@ -33,7 +33,7 @@ const checkGuess = (guess: string, solution: string) => {
     const length = guessChars.length;
 
     if (guessChars?.length !== 6) {
-        return `Enter guess: r,g,b,y,o (6 total)`
+        return `invalid input`
     }
 
     // First pass to find white pegs (correct color and position)
