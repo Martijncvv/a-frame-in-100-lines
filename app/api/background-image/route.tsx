@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
     solution: "",
     guesses: [],
     counter: 0,
-      gameWon: false,
+      gameWon: "false",
   };
 
     console.log("state123: ", state)
