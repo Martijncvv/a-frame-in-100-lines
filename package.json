@@ -1,5 +1,5 @@
 {
-  "name": "Mastermind by WP Martycfly",
+  "name": "Mastermind-by-X-Marty_cfly",
   "version": "0.0.1",
   "scripts": {
     "build": "rm -rf .next && next build",
