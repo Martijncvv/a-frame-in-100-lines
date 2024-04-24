@@ -65,6 +65,23 @@ export async function GET(req: NextRequest) {
                 <GameInfo title="Guesses" value={state.guesses}/>
                 <GameInfo title="Number of Tries" value={state.counter}/>
                 <GameInfo title="Current Solution" value={state.solution || "Not set yet"}/>
+                <div style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    borderRadius: '10px',
+                    padding: '20px',
+                    margin: '10px 0',
+                    width: '80%',
+                    fontSize: '16px',
+                    color: '#aad1f9',
+                    textAlign: 'center',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+                }}>
+                    <p>Choose from r, g, b, y, o and separate choices with a comma. There should be 6 chars
+                        total.</p>
+                    <p>A white feedback circle indicates an option is in the correct color and position. A black circle
+                        indicates the correct color but wrong position.</p>
+                </div>
+
             </div>
         ),
         {

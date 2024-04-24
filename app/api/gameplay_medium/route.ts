@@ -28,7 +28,7 @@ const getRandomSolution = () => {
 const checkGuess = (guess: string, solution: string) => {
     const result: any = [];
     const solutionChars = solution.split(',');
-    const guessEmojis = guess.split(',').map((r) => colorMap[r]).join('');
+    const guessEmojis = guess.split(',').map((r) => colorMap[r]).join(' ');
     const guessChars: any  = guess.split(',');
     const length = guessChars.length;
 
@@ -62,7 +62,7 @@ const checkGuess = (guess: string, solution: string) => {
         return `${guessEmojis} - None`;
     }
 
-    const feedback =  result?.length > 0 ? result.map((r: any) => colorMap[r]).join('') : '';
+    const feedback =  result?.length > 0 ? result.map((r: any) => colorMap[r]).join(' ') : '';
 
     return `${guessEmojis}-${feedback}`;
 }
