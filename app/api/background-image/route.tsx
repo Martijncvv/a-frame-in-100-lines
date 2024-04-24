@@ -31,17 +31,17 @@ export async function GET(req: NextRequest) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent for dark mode
                 borderRadius: '10px',
                 padding: '10px 20px',
-                margin: '10px 0',
+                margin: '10px 0', // Adjust margin for better spacing
                 width: '90%',
                 maxWidth: '500px',
                 fontSize: '18px',
-                color: 'rgba(255, 255, 255, 0.9)',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+                color: 'rgba(255, 255, 255, 0.9)', // Light text for dark background
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)', // Softer shadow in dark mode
             }}>
-                <strong style={{ display: 'block', color: '#aad1f9' }}>{title}</strong>
+                <strong style={{ display: 'block', color: '#aad1f9' }}>{title}</strong> // Use a soft blue for titles
                 <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px', textAlign: 'center' }}>
                     {Array.isArray(value) ? value.map((item, index) => (
                         <div key={index} style={{ margin: '2px 0' }}>{item}</div>
@@ -61,34 +61,17 @@ export async function GET(req: NextRequest) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: "#0a0f0d",
+                    backgroundColor: "#0a0f0d", // Darker background for more depth
                     color: 'white',
                     fontFamily: 'Comic Sans MS, cursive, sans-serif',
                     padding: '20px',
                     boxSizing: 'border-box',
                 }}
             >
-                <h1 style={{color: '#f66f06', marginBottom: '20px'}}>Mastermind Game Stats</h1>
-                <GameInfo title="Guesses" value={state.guesses}/>
-                <GameInfo title="Number of Tries" value={state.counter}/>
-                <GameInfo title="Current Solution" value={state.solution || "Not set yet"}/>
-                {/*<div style={{*/}
-                {/*    backgroundColor: 'rgba(255, 255, 255, 0.1)',*/}
-                {/*    borderRadius: '10px',*/}
-                {/*    padding: '20px',*/}
-                {/*    margin: '10px 0',*/}
-                {/*    width: '80%',*/}
-                {/*    fontSize: '16px',*/}
-                {/*    color: '#aad1f9',*/}
-                {/*    textAlign: 'center',*/}
-                {/*    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',*/}
-                {/*}}>*/}
-                {/*    <p>Choose from 'r', 'g', 'b', 'y', 'o' and separate choices with a comma. There should be 6 chars*/}
-                {/*        total.</p>*/}
-                {/*    <p>A white feedback circle indicates an option is in the correct color and position. A black circle*/}
-                {/*        indicates the correct color but wrong position.</p>*/}
-                {/*</div>*/}
-
+                <h1 style={{ color: '#f66f06', marginBottom: '20px' }}>Mastermind Game Stats</h1>
+                <GameInfo title="Guesses" value={state.guesses} />
+                <GameInfo title="Number of Tries" value={state.counter} />
+                <GameInfo title="Current Solution" value={state.solution || "Not set yet"} />
             </div>
         ),
         {
