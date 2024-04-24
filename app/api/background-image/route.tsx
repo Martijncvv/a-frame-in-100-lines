@@ -9,9 +9,15 @@ export async function GET(req: NextRequest) {
     const stateSearchParam = req.nextUrl.searchParams.get('state');
     console.log("stateSearchParam12", stateSearchParam)
 
-    const state = (stateSearchParam ? decodeURIComponent(stateSearchParam) : '') || '0';
+  const state = stateSearchParam ? JSON.parse(decodeURIComponent(stateSearchParam)) : {
+    solution: "",
+    guesses: [],
+    counter: 0,
+  };
 
-    console.log("state2222: ", state)
+
+    console.log("state123: ", state)
+
     return new ImageResponse(
         (
             <div
