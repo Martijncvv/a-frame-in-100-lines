@@ -15,33 +15,40 @@ export async function GET(req: NextRequest) {
     counter: 0,
   };
 
+    interface GameInfoProps {
+        title: string;
+        value: string | string[];
+    }
+
 
     console.log("state123: ", state)
 
-    const GameInfo = ({ title, value }: any ) => (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.8)',
-            borderRadius: '10px',
-            padding: '10px 20px',
-            margin: '5px',
-            width: '90%',
-            maxWidth: '500px',
-            fontSize: '18px',
-            color: '#333',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-        }}>
-            <strong>{title}</strong>
-            <div style={{ marginTop: '10px', textAlign: 'center' }}>
-                {Array.isArray(value) ? value.map((item, index) => (
-                    <div key={index} style={{ margin: '2px 0' }}>{item}</div>
-                )) : <span>{value}</span>}
+    const GameInfo: React.FC<GameInfoProps> = ({ title, value }) => {
+        return (
+            <div style={{
+                display: 'flex', // Explicitly set display to flex
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                borderRadius: '10px',
+                padding: '10px 20px',
+                margin: '5px',
+                width: '90%',
+                maxWidth: '500px',
+                fontSize: '18px',
+                color: '#333',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+            }}>
+                <strong style={{ display: 'block' }}>{title}</strong>  // Ensuring each child also respects display rules if necessary
+                <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px', textAlign: 'center' }}>
+                    {Array.isArray(value) ? value.map((item, index) => (
+                        <div key={index} style={{ margin: '2px 0' }}>{item}</div>
+                    )) : <span>{value}</span>}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 
     return new ImageResponse(
         (
