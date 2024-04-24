@@ -76,7 +76,15 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         return new NextResponse('Message not valid', { status: 500 });
     }
 
-    const guess = message?.input?.length > 0 ? message.input.toLowerCase() : '';
+    let guess = message?.input?.length > 0 ? message.input.toLowerCase() : '';
+    // if no commass add them between each character
+    // remove all spaces
+    guess = guess.replace(/\s/g, '');
+    // remove all dots
+    guess = guess.replace(/\./g, '');
+    if (guess.length === 4) {
+        guess = guess.split('').join(',');
+    }
 
     let state: IState = {
         solution: "",
