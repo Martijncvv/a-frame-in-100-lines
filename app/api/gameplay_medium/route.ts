@@ -129,22 +129,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
     const imageUrl = `${NEXT_PUBLIC_URL}/api/background-image?state=${encodeURIComponent(JSON.stringify(state))}`;
 
-    // let imageUrl = `${NEXT_PUBLIC_URL}/mastermind-3.png`;
-    // if (state.counter > 10) {
-    //     imageUrl = `${NEXT_PUBLIC_URL}/mastermind-6.png`;
-    // } else if (state.counter > 7) {
-    //     imageUrl = `${NEXT_PUBLIC_URL}/mastermind-5.png`;
-    // } else if (state.counter > 4) {
-    //     imageUrl = `${NEXT_PUBLIC_URL}/mastermind-4.png`;
-    // }
-    //
-
-
     return new NextResponse(
         getFrameHtmlResponse({
             buttons: [
                 {
-                    label: `${gameWonMessage ? gameWonMessage : checkGuess(guess, state.solution)} `,
+                    label: `${gameWonMessage ? gameWonMessage : "Guess"} `,
                     action: 'post',
                     target: `${NEXT_PUBLIC_URL}/api/gameplay_medium`,
                 },

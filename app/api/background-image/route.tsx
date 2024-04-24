@@ -71,7 +71,8 @@ export async function GET(req: NextRequest) {
                     </p>
                 ) : (
                     <div style={{
-                    display: 'flex'}}
+                    display: 'flex',
+                        flexDirection: 'column',}}
                     >
                         <GameInfo title="Guesses" value={state.guesses}/>
                         <GameInfo title="Number of Tries" value={state.counter}/>
