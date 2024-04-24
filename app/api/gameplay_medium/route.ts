@@ -99,7 +99,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
                     state = {
                         solution: "",
                         guesses: [],
-                        counter: -1,
+                        counter: parsedState.counter + 1,
                         gameWon: "true",
                     };
                 } else {

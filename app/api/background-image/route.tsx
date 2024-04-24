@@ -70,7 +70,9 @@ export async function GET(req: NextRequest) {
                         Great job! You've solved the puzzle in {state.counter} tries.
                     </p>
                 ) : (
-                    <>
+                    <div style={{
+                    display: 'flex'}}
+                    >
                         <GameInfo title="Guesses" value={state.guesses}/>
                         <GameInfo title="Number of Tries" value={state.counter}/>
                         <GameInfo title="Current Solution" value={state.solution || "Not set yet"}/>
@@ -95,7 +97,7 @@ export async function GET(req: NextRequest) {
                                 and correctly positioned, while a black circle signifies that the color is correct but in the
                                 wrong position.</p>
                         </div>
-                    </>
+                    </div>
                 )}
             </div>
         ),
